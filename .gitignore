@@ -1,0 +1,6 @@
+conf/database.php
+lib/Stato
+log/*.log
+log/*.log.*
+cache/*
+*\.swp
