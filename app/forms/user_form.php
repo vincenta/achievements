@@ -26,14 +26,6 @@ class UserCreateForm extends SForm {
         ));
     }
 
-    protected function clean_email($value) {
-        $data = explode('@',$value);
-        $domain = strtolower($data[1]);
-        if (in_array($domain,$GLOBALS['forbidden_email_domains']))
-            throw new SValidationError(__('Please, do not use disposable email'), array(), $value);
-        return $value;
-    }
-
     protected function clean() {
         try {
             if ($this->cleaned_data['password']!==$this->cleaned_data['password_confirmation'])
