@@ -16,6 +16,10 @@ class User extends SActiveRecord {
         $this->validate_uniqueness_of('email',array('An account already exists for this email.'));
     }
 
+    public function get_gravatar_url($size = 40) {
+        return Gravatar::build_gravatar_url($this->email, $size);
+    }
+
     protected function before_create() {
         $this->active = true;
     }

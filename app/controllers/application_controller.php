@@ -1,5 +1,7 @@
 <?php
 
+include_once 'Gravatar/gravatar.php';
+
 class ApplicationController extends SActionController {
     protected $layout = 'main';
 
