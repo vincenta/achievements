@@ -14,12 +14,14 @@
         <div id="head">
 <? if (isset($this->session['user'])) : ?>
             <div id="userBar">
-                <?= _f('Connected as %s (email: &lt;%s&gt;)',array($this->session['user']->login,$this->session['user']->email)) ?>
+                <?= _f('Connected as %s',array($this->session['user']->login)) ?>
                 -
                 <?= link_to(__('Logout'), array('controller' => 'login', 'action' => 'logout')); ?>
             </div>
 <? else : ?>
             <div id="anonymBar">
+                <?= __('Not logged in') ?>
+                -
                 <?= link_to(__('Login'), array('controller' => 'login', 'action' => 'login')); ?>
                 -
                 <?= link_to(__('Register'), array('controller' => 'users', 'action' => 'register')); ?>
@@ -32,6 +34,8 @@
         </div>
 
         <div id="foot">
+            <?= __('Achievements is free software released under the terms of the GNU Affero General Public License') ?>.
+            <a href="http://github.com/vincenta/achievements" title="<? __('Achievements github project homepage') ?>"><?= __('Project homepage') ?></a>
         </div>
 
     </div>

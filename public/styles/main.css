@@ -1,7 +1,22 @@
 
+/* default styles and colors */
 body { background-color: #000000; }
+a { font-weight: bold; text-decoration: none; color: #4b5d24; }
+a:hover { text-decoration: underline; }
 
+/* main layout */
 #content { margin: auto; padding: 0 5px 0 5px; width: 772px; background-color: #9c9c9c; border-radius: 5px; }
+#head { margin: 0; padding: 96px 0 5px 0; background: #9c9c9c url('/images/hof.png') no-repeat scroll top center; }
+#foot { margin: 0; padding: 25px 5px 5px 5px; font-size: 0.7em; }
 
-#head { margin: 0; padding: 96px 5px 5px 5px; background: #9c9c9c url('/images/hof.png') no-repeat scroll top center; }
+/* head */
+#anonymBar { margin: 0; padding: 0 5px 0 5px; background-color: #4f4f4f; border-radius: 5px; color: #c8b996; font-weight: bold; }
+#anonymBar a { color: #9dc34c; }
+#userBar { margin: 0; padding: 0 5px 0 5px; background-color: #4f4f4f; border-radius: 5px; color: #c8b996; font-weight: bold; }
+#userBar a { color: #9dc34c; }
+
+/* forms */
+label { display: block; }
+input, textarea { border: 1px solid #000000; }
+.error { color: #dd0000; }
 
