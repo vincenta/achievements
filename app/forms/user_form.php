@@ -26,6 +26,14 @@ class UserCreateForm extends SForm {
         ));
     }
 
+    protected function clean_login($value) {
+        return strtolower($value);
+    }
+
+    protected function clean_email($value) {
+        return strtolower($value);
+    }
+
     protected function clean() {
         try {
             if ($this->cleaned_data['password']!==$this->cleaned_data['password_confirmation'])

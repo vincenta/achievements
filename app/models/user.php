@@ -23,5 +23,7 @@ class User extends SActiveRecord {
 
     protected function before_create() {
         $this->active = true;
+        $this->login = strtolower($this->login);
+        $this->email = strtolower($this->email);
     }
 }
