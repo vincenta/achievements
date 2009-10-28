@@ -8,7 +8,7 @@ class DbInit extends SMigration {
         $t->add_column('login', 'string', array('null'=>false));
         $t->add_column('password', 'string', array('null'=>false));
         $t->add_column('email', 'string', array('null'=>false));
-        $t->add_column('active', 'boolean', array('null'=>false,'default'=>0));
+        $t->add_column('active', 'boolean', array('null'=>false,'default'=>1));
         $t->add_column('created_on', 'datetime');
         $t->add_column('updated_on', 'datetime');
         $this->create_table('users', $t);
@@ -19,7 +19,8 @@ class DbInit extends SMigration {
         $t->add_column('unlocked_url', 'string', array('null'=>false));
         $t->add_column('reward', 'string', array('null'=>false));
         $t->add_column('creator_id', 'integer', array('null'=>false));
-        $t->add_column('winner', 'integer');
+        $t->add_column('winner_id', 'integer');
+        $t->add_column('expired', 'boolean', array('null'=>false,'default'=>0));
         $t->add_column('created_on', 'datetime');
         $t->add_column('updated_on', 'datetime');
         $this->create_table('achievements', $t);
