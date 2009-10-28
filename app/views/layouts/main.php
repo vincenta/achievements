@@ -14,7 +14,7 @@
         <div id="head">
 <? if (isset($this->session['user'])) : ?>
             <div id="userBar">
-                <?= _f('Connected as %s',array($this->session['user']->login)) ?>
+                <?= _f('Connected as %s',array($this->session['user'])) ?>
                 -
                 <?= link_to(__('Logout'), array('controller' => 'login', 'action' => 'logout')); ?>
             </div>

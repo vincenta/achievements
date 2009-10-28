@@ -3,6 +3,9 @@
 body { background-color: #000000; }
 a { font-weight: bold; text-decoration: none; color: #4b5d24; }
 a:hover { text-decoration: underline; }
+h1 { font-size: 1.6em; }
+h2 { font-size: 1.4em; }
+h3 { font-size: 1.2em; }
 
 /* main layout */
 #content { margin: auto; padding: 0 5px 0 5px; width: 772px; background-color: #9c9c9c; border-radius: 5px; }

@@ -11,4 +11,9 @@ class Achievement extends SActiveRecord {
     public function __toString() {
         return "Achievement #{$this->id}";
     }
+
+    public function is_locked() {
+        $id = $this->winner_id;
+        return empty($id);
+    }
 }
