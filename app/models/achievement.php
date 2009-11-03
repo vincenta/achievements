@@ -13,7 +13,15 @@ class Achievement extends SActiveRecord {
     }
 
     public function is_locked() {
-        $id = $this->winner_id;
-        return empty($id);
+        return $this->state=='locked';
+    }
+
+    public function is_expired() {
+        return $this->state=='expired';
+    }
+
+    public function trophy_url() {
+        //FIXME: generate the trophy image and return the url
+        return 'not-found.png';
     }
 }
