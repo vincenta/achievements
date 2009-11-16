@@ -3,4 +3,4 @@ lib/Stato
 log/*.log
 log/*.log.*
 cache/*
-*\.swp
+*.swp
