@@ -1,6 +1,7 @@
 <?php
 
 include_once 'Gravatar/gravatar.php';
+include_once 'Achievement/achievement.php';
 
 class ApplicationController extends SActionController {
     protected $layout = 'main';
@@ -50,6 +51,9 @@ class ApplicationController extends SActionController {
             return true;
         //else
         if (($this->controller_name()=='users') && ($this->action_name()=='register'))
+            return true;
+        //else
+        if (($this->controller_name()=='achievement') && ($this->action_name()=='generate'))
             return true;
         //else
         if ($this->authenticate())
