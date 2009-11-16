@@ -2,6 +2,10 @@
 
 class AchievementController extends ApplicationController {
 
+    public function create() {
+        
+    }
+
     public function generate() {
         $this->layout = '';
 
@@ -9,7 +13,7 @@ class AchievementController extends ApplicationController {
         $description = $this->params['description'];
         $reward      = $this->params['reward'];
         $state       = $this->params['state'];
-//        $pix         = $this->params['pix'];
+//        $pix         = $this->params['pix']; //FIXME: add pix support
 
         $image = new AchievementPix($title, $description, $reward, $state, $pix);
 
