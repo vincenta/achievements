@@ -1,6 +1,6 @@
 <?php
 
-class AchievementController extends ApplicationController {
+class AchievementsController extends ApplicationController {
 
     public function create() {
         
