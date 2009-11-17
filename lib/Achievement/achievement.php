@@ -1,10 +1,15 @@
 <?php
 
 /**
+ * This file is part of Achievements. Achievements is free software released
+ * under the terms of the GNU AGPL Licence. You should have received a copy of
+ * the GNU Affero General Public License along with Achievements. If not, see
+ * <http://www.gnu.org/licenses/>.
+ *
  * Class used to generate achievement images.
  * 
  * @copyright Copyright (c) 2009 Vincent Alquier
- * @author Vincent Alquier <vincent.alquier@aliasource.fr> 
+ * @author Vincent Alquier <vincent.alquier@gmail.com> 
  * @license AGPL 3.0
  */
 class AchievementPix {
