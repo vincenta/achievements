@@ -1,5 +1,6 @@
 conf/database.php
 lib/Stato
+public/achievements
 log/*.log
 log/*.log.*
 cache/*
