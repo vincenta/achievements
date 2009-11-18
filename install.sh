@@ -15,14 +15,17 @@ mkdir -p log
 echo "create lib..."
 mkdir -p lib
 
+echo "create public/achievements..."
+mkdir -p public/achievements
+
 echo "get Stato framework lib..."
 cd lib
 svn export --force https://stato.svn.sourceforge.net/svnroot/stato/tags/rel_0-10-0/ Stato
 cd ..
 
 echo "set rights on cache and log directories..."
-sudo chown -R www-data:www-data cache log
-sudo chmod 700 cache cache/fragments cache/generated_code cache/templates
+sudo chown -R www-data:www-data cache log public/achievements
+sudo chmod 700 cache cache/fragments cache/generated_code cache/templates public/achievements
 sudo chmod 755 log
 
 echo "OK" 
