@@ -14,15 +14,9 @@ class AchievementCreateForm extends SForm {
             'required' => true,
             'label'    => __('Description')
         ));
-        $this->image_id = new SIntegerField(array(
-            'required'  => true,
-            'label'     => __('Image'),
-            'min_value' => 1,
-            'error_messages' => array(
-                'invalid'   => __('Image selected seems to be invalid'),
-                'min_value' => __('Image selected seems to be invalid'),
-                'max_value' => __('Image selected seems to be invalid')
-            )
+        $this->image_id = new SCharField(array( //FIXME: advanced image picker
+            'required'  => false,
+            'label'     => __('Image')
         ));
         $this->reward = new SCharField(array(
             'required' => true,

@@ -23,9 +23,9 @@ cd lib
 svn export --force https://stato.svn.sourceforge.net/svnroot/stato/tags/rel_0-10-0/ Stato
 cd ..
 
-echo "set rights on cache and log directories..."
-sudo chown -R www-data:www-data cache log public/achievements
-sudo chmod 700 cache cache/fragments cache/generated_code cache/templates public/achievements
+echo "set rights on directories..."
+sudo chown -R www-data:www-data cache log public/achievements app/resources/images
+sudo chmod 700 cache cache/fragments cache/generated_code cache/templates public/achievements app/resources/images
 sudo chmod 755 log
 
 echo "OK" 
