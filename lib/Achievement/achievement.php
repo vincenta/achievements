@@ -38,30 +38,45 @@ class AchievementPix {
      * @return void
      */
     public function __construct($title, $description, $reward='', $state='unlocked', $pix=null) {
-        $font_path = dirname(__FILE__).'/fonts';
-        $pix_path = dirname(__FILE__).'/pix';
+        $this->set_default();
+
         $this->_title = $title;
         $this->_description = $description;
         $this->_reward = $reward;
-        $this->_state = (in_array($state,array('unlocked','locked','expired')) ? $state : 'unlocked');
-        $this->_pix = (!empty($pix) ? $pix : "{$pix_path}/default.png");
-        $this->_titleFont = "{$font_path}/Vera.ttf";
-        $this->_textFont = "{$font_path}/VeraBd.ttf";
-        $this->_bgColor = '#4f4f4f';
-        $this->_titleColor = '#9dc34c';
-        $this->_textColor = '#c8b996';
+
+        if (in_array($state, array('unlocked','locked','expired')))
+            $this->_state = $state;
+        if (!empty($pix))
+            $this->_pix = $pix; //FIXME: check file exists and is readable
+
         if ($this->_state!='unlocked') {
-            $this->_bgColor = '#343434';
+            $this->_bgColor    = '#343434';
             $this->_titleColor = '#909090';
-            $this->_textColor = '#909090';
+            $this->_textColor  = '#909090';
         }
     }
 
     /**
-     * Standard getter
-     * @param string $var          attribute name (eg: 'title')
+     * Reset the AchievementPix attributes to default values
      * @access public
      * @return mixed
+     */
+    public function set_default() {
+        $font_path = dirname(__FILE__).'/fonts';
+        $pix_path  = dirname(__FILE__).'/pix';
+        $this->_state      = 'unlocked';
+        $this->_pix        = "{$pix_path}/default.png";
+        $this->_titleFont  = "{$font_path}/Vera.ttf";
+        $this->_textFont   = "{$font_path}/VeraBd.ttf";
+        $this->_bgColor    = '#4f4f4f';
+        $this->_titleColor = '#9dc34c';
+        $this->_textColor  = '#c8b996';
+    }
+
+    /**
+     * Standard getter
+     * @access public
+     * @return void
      */
     public function __get($var) {
         $attribute = "_{$var}";
@@ -108,24 +123,16 @@ class AchievementPix {
         $draw->setFillColor(new ImagickPixel($this->_bgColor));
         $draw->roundRectangle(0,0,$this->_width-1,$this->_height-1,5,5);
 
-        //drawing Title
-        $draw->setFillColor(new ImagickPixel($this->_titleColor));
-        $draw->setFont($this->_titleFont);
-        $draw->setFontSize($this->_titleFontSize);
-        $draw->annotation(84,5+$draw->getFontSize(),$this->_title);
-
-        //drawing Description
-        $draw->setFillColor(new ImagickPixel($this->_textColor));
-        $draw->setFont($this->_textFont);
-        $draw->setFontSize($this->_textFontSize);
-        $draw->annotation(84,30+$draw->getFontSize(),$this->_description);
+        //drawing Title and Description
+        $this->_addTextToDraw($draw, $this->_titleColor, $this->_titleFont, $this->_titleFontSize,
+            84, 5, $this->_title);
+        $this->_addTextToDraw($draw, $this->_textColor, $this->_textFont, $this->_textFontSize,
+            84, 30, $this->_description);
 
         //drawing Reward
         if (!empty($this->_reward)) {
-            $draw->setFillColor(new ImagickPixel($this->_textColor));
-            $draw->setFont($this->_textFont);
-            $draw->setFontSize($this->_textFontSize);
-            $draw->annotation(84,$this->_height-10,$this->_reward);
+            $this->_addTextToDraw($draw, $this->_textColor, $this->_textFont, $this->_textFontSize,
+                84, 51, $this->_reward);
         }
 
         $canvas->drawImage($draw);
@@ -144,5 +151,24 @@ class AchievementPix {
         }
 
         return $canvas;
+    }
+
+    /**
+     * Add text to the given ImagickDraw (just a tool function used by _buildImage)
+     * @param ImagickDraw $draw         canvas to draw text
+     * @param string      $color        text color
+     * @param string      $font         font path
+     * @param integer     $font_size    font size (in pixels)
+     * @param integer     $x            text x pos
+     * @param integer     $y            text y pos
+     * @param string      $text         text
+     * @access protected
+     * @return void
+     */
+    protected function _addTextToDraw(&$draw, $color, $font, $font_size, $x, $y, $text) {
+        $draw->setFillColor(new ImagickPixel($color));
+        $draw->setFont($font);
+        $draw->setFontSize($font_size);
+        $draw->annotation($x,$y+$draw->getFontSize(),$text);
     }
 }
