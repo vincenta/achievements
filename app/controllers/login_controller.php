@@ -61,10 +61,12 @@ class LoginController extends ApplicationController {
                     return;
 
                 } catch (SRecordNotFound $e) {
-                    $this->flash['error'] = __('Email not found');
+                    $this->flash['error'] = __('This email address is not registered');
+                    $this->form->errors = new SFormErrors(array('email' => __('Email not found')));
                     return;
                 }
             }
+            $this->flash['error'] = __('You have to give a valid registered email address.');
         }
     }
 }

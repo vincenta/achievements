@@ -14,7 +14,7 @@ class UsersController extends ApplicationController {
             }
             $this->user = new User($this->form->cleaned_data);
             if (!($this->user->save())) {
-                $this->form->errors = $this->user->errors;
+                $this->form->errors = new SFormErrors($this->user->errors);
                 $this->flash['error'] = __('Fail to create account : Check data.');
                 return;
             }

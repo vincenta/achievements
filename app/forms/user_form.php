@@ -37,7 +37,7 @@ class UserCreateForm extends SForm {
     protected function clean() {
         try {
             if ($this->cleaned_data['password']!==$this->cleaned_data['password_confirmation'])
-                throw new SValidationError(__('Password confirmation must be identical to password'), array(), $value);
+                throw new SValidationError(__('Password confirmation must be identical to password'));
 
         } catch (SValidationError $e) {
             $this->errors['password_confirmation'] = _f($e->get_message(), $e->get_args());

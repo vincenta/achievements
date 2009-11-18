@@ -9,8 +9,9 @@
 
     <?= $this->form; ?>
 
-    <p><?= $this->flash['error']; ?></p>
-    <?= $this->form->errors; ?>
+    <? if (!empty($this->flash['error'])) : ?>
+        <p class="error"><?= $this->flash['error']; ?></p>
+    <? endif; ?>
 
     <?= submit_tag(__('Log in')); ?>
 
