@@ -54,10 +54,7 @@ class AchievementsController extends ApplicationController {
 
 
     protected function _generate($achievement) {
-        $image = $achievement->generate();
-        $filename = $achievement->filename();
-        $path = "achievements/{$filename}";
-        $image->saveImage($path);
-        return $this->url_for($path);
+        $path = achievement_path($achievement);
+        generate_achievement($achievement, $path);
     }
 }

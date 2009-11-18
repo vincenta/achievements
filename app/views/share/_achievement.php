@@ -1,7 +1,6 @@
 <?php
 $creator = $achievement->creator->target();
 $winner = $achievement->winner->target();
-$image = $achievement->trophy_url();
 
 if ($achievement->is_locked()) {
     $state = __('Locked');
@@ -12,8 +11,7 @@ if ($achievement->is_locked()) {
 }
 ?>
 <p>
-    <img src="<?= encode_achievement_url($image) ?>" alt="<?= $achievement ?>"/>
-    <?= _f('Reward %s (offered by %s)', array($achievement->reward,$creator)) ?><br/>
+    <img src="<?= achievement_url($achievement) ?>" alt="<?= $achievement ?>"/><br/>
     <?= $state ?>
 </p>
 
