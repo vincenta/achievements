@@ -47,7 +47,7 @@ class AchievementPix {
         if (in_array($state, array('unlocked','locked','expired')))
             $this->_state = $state;
         if (!empty($pix))
-            $this->_pix = $pix; //FIXME: check file exists and is readable
+            $this->_pix = $pix;
 
         if ($this->_state!='unlocked') {
             $this->_bgColor    = '#343434';

@@ -20,6 +20,8 @@ class Achievement extends SActiveRecord {
     );
     public $record_timestamps = true;
 
+    protected $_image;
+
     /**
      * Standard __toString function
      * @access public
@@ -67,12 +69,26 @@ class Achievement extends SActiveRecord {
     }
 
     /**
+     * Return the image from the image_id
+     * @access public
+     * @return Image
+     */
+    public function read_image() {
+        if (empty($this->_image)) {
+            $this->_image = ImageBrowser::get($this->image_id);
+        }
+        return $this->_image;
+    }
+
+    /**
      * Build image and return the AchievementPix object
      * @access public
      * @return AchievementPix
      */
     public function generate() {
-        $image = new AchievementPix($this->title, $this->description, $this->reward_text(), $this->state/*, $this->image*/); //FIXME: add pix support
+        $pix = $this->image;
+        $image_path = !empty($this->image) ? $this->image->get_path() : null;
+        $image = new AchievementPix($this->title, $this->description, $this->reward_text(), $this->state, $image_path);
         return $image;
     }
 }

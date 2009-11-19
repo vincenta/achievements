@@ -14,17 +14,20 @@ class AchievementCreateForm extends SForm {
             'required' => true,
             'label'    => __('Description')
         ));
-        $this->image_id = new ImageSelectorField(array( //FIXME: advanced image picker
-            'required'  => false,
-            'label'     => __('Image')
-        ));
         $this->reward = new SCharField(array(
             'required' => true,
             'label'    => __('Reward')
         ));
+        $this->image_id = new ImageSelectorField(array(
+            'required'  => true,
+            'label'     => __('Image')
+        ));
     }
 
-    protected function clean() {
+    protected function clean_image_id($value) {
+        if (!ImageBrowser::check_file($value))
+            throw new SValidationError(__('Select an image'));
+        return $value;
     }
 }
 

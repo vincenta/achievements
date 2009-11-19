@@ -32,11 +32,18 @@
             function addImage(image){
                 var span = $('<span class="selectorImage"><img src="'+image.url+'" alt="'+image.title+'" /></span>');
                 span.click(function() {
-                    selector.find('.selected').removeClass('selected');
-                    span.addClass('selected');
-                    field.val(image.image_id);
+                    selectImage(image,span);
                 });
                 selector.append(span);
+                if (image.image_id==field.val()) {
+                    selectImage(image,span);
+                }
+            }
+
+            function selectImage(image,element) {
+                selector.find('.selected').removeClass('selected');
+                element.addClass('selected');
+                field.val(image.image_id);
             }
 
             function loadingError() {
