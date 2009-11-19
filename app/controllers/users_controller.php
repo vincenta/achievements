@@ -1,9 +1,28 @@
 <?php
 
+/**
+ * This file is part of Achievements. Achievements is free software released
+ * under the terms of the GNU AGPL Licence. You should have received a copy of
+ * the GNU Affero General Public License along with Achievements. If not, see
+ * <http://www.gnu.org/licenses/>.
+ */
+
 require 'forms/user_form.php';
 
+/**
+ * User controller
+ * 
+ * @copyright Copyright (c) 2009 Vincent Alquier
+ * @author Vincent Alquier <vincent.alquier@gmail.com> 
+ * @license AGPL 3.0
+ */
 class UsersController extends ApplicationController {
 
+    /**
+     * Register action : create a new account
+     * @access public
+     * @return void
+     */
     public function register() {
         $this->form = new UserCreateForm();
 

@@ -1,9 +1,28 @@
 <?php
 
+/**
+ * This file is part of Achievements. Achievements is free software released
+ * under the terms of the GNU AGPL Licence. You should have received a copy of
+ * the GNU Affero General Public License along with Achievements. If not, see
+ * <http://www.gnu.org/licenses/>.
+ */
+
 require 'forms/login_form.php';
 
+/**
+ * Login controller
+ * 
+ * @copyright Copyright (c) 2009 Vincent Alquier
+ * @author Vincent Alquier <vincent.alquier@gmail.com> 
+ * @license AGPL 3.0
+ */
 class LoginController extends ApplicationController {
 
+    /**
+     * Index action : redirect to home if user is logged in or to login action else
+     * @access public
+     * @return void
+     */
     public function index() {
         if (!isset($this->session['user'])) {
             $this->redirect_to_login();
@@ -12,6 +31,11 @@ class LoginController extends ApplicationController {
         $this->redirect_to_home();
     }
 
+    /**
+     * Login action : user login action
+     * @access public
+     * @return void
+     */
     public function login() {
         $this->form = new LoginForm();
         
@@ -41,6 +65,11 @@ class LoginController extends ApplicationController {
         }
     }
 
+    /**
+     * Lost action : if user has lost his password
+     * @access public
+     * @return void
+     */
     public function lost() {
         $this->form = new LostLoginForm();
 
