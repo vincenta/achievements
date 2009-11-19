@@ -5,6 +5,8 @@ require 'forms/achievement_form.php';
 class AchievementsController extends ApplicationController {
 
     public function create() {
+        $this->add_extra_css('jquery.imageSelector.css');
+        $this->add_extra_js('jquery.imageSelector.js');
         $this->form = new AchievementCreateForm();
 
         if ($this->request->is_post()) {

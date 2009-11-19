@@ -1,0 +1,24 @@
+.selectorBox {
+    margin: 0;
+    padding: 0;
+    background-color: #4f4f4f;
+    border: 1px solid #000000;
+}
+
+.selectorBox .selectorImage {
+    margin: 0;
+    padding: 5px;
+    display: inline-block;
+}
+
+.selectorBox .selected {
+    background-color: #c8b996;
+}
+
+.selectorBox .selectorImage img {
+    vertical-align: middle;
+    border: 0;
+    width: 64px;
+    height: 64px;
+}
+

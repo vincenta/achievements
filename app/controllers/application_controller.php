@@ -2,6 +2,7 @@
 
 include_once 'Gravatar/gravatar.php';
 include_once 'Achievement/achievement.php';
+include_once 'models/image.php';
 
 class ApplicationController extends SActionController {
     protected $layout = 'main';

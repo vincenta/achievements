@@ -13,7 +13,6 @@
  * @license AGPL 3.0
  */
 class Image {
-    public static $objects;
     protected $_filename;
     protected $_title;
 
@@ -118,12 +117,14 @@ class ImageBrowser {
      * @return array
      */
     public static function all() {
-        $folder_handle = opendir("../app/ressources/images/");
-        $all = array();
-        while(false !== ($filename = readdir($folder_handle))) {
-            if ( (substr($filename, 0, 1)!='.') && ($image = ImageBrowser::get($filename)) ) {
-                $title = $image->title;
-                $all[$title] = $image;
+        static $all = null;
+        if (is_null($all)) {
+            $folder_handle = opendir("pix/");
+            $all = array();
+            while(false !== ($filename = readdir($folder_handle))) {
+                if ( (substr($filename, 0, 1)!='.') && ($image = ImageBrowser::get($filename)) ) {
+                    $all[] = $image;
+                }
             }
         }
         return $all;
@@ -135,8 +136,8 @@ class ImageBrowser {
      * @access public
      * @return string
      */
-    public static build_path($filename) {
-        return "../app/ressources/images/{$filename}";
+    public static function build_path($filename) {
+        return "pix/{$filename}";
     }
 
     /**
@@ -145,7 +146,7 @@ class ImageBrowser {
      * @access public
      * @return string
      */
-    public static build_title($filename) {
+    public static function build_title($filename) {
         $info     = pathinfo($filename);
         $filename = basename($file,".{$info['extension']}");
         return str_replace(array('_'),array(' '),$filename);
@@ -157,7 +158,7 @@ class ImageBrowser {
      * @access public
      * @return string
      */
-    public static generate_filename($title) {
+    public static function generate_filename($title) {
         $tmp = trim(preg_replace( '/([^a-zA-Z0-9\_\-\.\s]+)/', '', $title)); //removes forbidden chars
         $tmp = preg_replace( '/(\s+)/', '_', $tmp); //replaces any space by underscore
         return "{$tmp}.png";
@@ -169,7 +170,7 @@ class ImageBrowser {
      * @access public
      * @return string
      */
-    public static check_file($filename) {
+    public static function check_file($filename) {
         $path = ImageBrowser::build_path($filename);
         $info = pathinfo($path);
         return (file_exists($path) && ImageBrowser::is_valid_extension($info['extension']) && is_readable($path) && !is_dir($path.'/'));
@@ -181,7 +182,7 @@ class ImageBrowser {
      * @access public
      * @return string
      */
-    public static is_valid_extension($extension) {
+    public static function is_valid_extension($extension) {
         return in_array($extension, array('png', 'gif', 'jpg', 'jpeg'));
     }
 }

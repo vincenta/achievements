@@ -3,10 +3,17 @@
 <head>
     <title>Hall of Fame</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <?= javascript_include_tag($_SERVER['STATO_ENV']=='production' ? 'jquery-1.3.2.min.js' : 'jquery-1.3.2.js'); ?>
+    <? foreach ($this->extra['js'] as $js_file) : ?>
+        <?= javascript_include_tag($js_file); ?>
+    <? endforeach; ?>
+
     <?= stylesheet_link_tag('main.css'); ?>
     <? foreach ($this->extra['css'] as $css_file) : ?>
         <?= stylesheet_link_tag($css_file); ?>
     <? endforeach; ?>
+
 </head>
 <body>
     <div id="content">

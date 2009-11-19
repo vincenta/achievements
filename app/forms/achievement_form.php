@@ -14,7 +14,7 @@ class AchievementCreateForm extends SForm {
             'required' => true,
             'label'    => __('Description')
         ));
-        $this->image_id = new SCharField(array( //FIXME: advanced image picker
+        $this->image_id = new ImageSelectorField(array( //FIXME: advanced image picker
             'required'  => false,
             'label'     => __('Image')
         ));
@@ -28,3 +28,26 @@ class AchievementCreateForm extends SForm {
     }
 }
 
+class ImageSelectorField extends SCharField {
+    protected $input = 'ImageSelectorInput';
+}
+
+class ImageSelectorInput extends SInput {
+    protected $type = 'hidden';
+
+    public function __construct(array $attrs = array()) {
+        $this->attrs = array('class' => 'imageSelector');
+        $this->add_attrs($attrs);
+    }
+    
+    public function render($name, $value = null, array $attrs = array()) {
+        $final_attrs = array_merge(array('type' => $this->type, 'name' => $name), $this->attrs, $attrs);
+        if ($value != '') $final_attrs['value'] = $value;
+        $url = SUrlRewriter::url_for(array('controller' => 'pix', 'action' => 'all_json'));
+        $js = "
+            <script type=\"text/javascript\">
+            $('#{$final_attrs['id']}').imageSelector('{$url}');
+            </script>\n";
+        return '<input '.$this->flatten_attrs($final_attrs).' />'.$js;
+    }
+}
