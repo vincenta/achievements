@@ -24,6 +24,8 @@
                 <div id="userBar">
                     <?= _f('Connected as %s',array($this->session['user'])) ?>
                     -
+                    <?= link_to(__('View all'), array('controller' => 'home')); ?>
+                    -
                     <?= link_to(__('Create an achievement'), array('controller' => 'achievements', 'action' => 'create')); ?>
                     -
                     <?= link_to(__('Logout'), array('controller' => 'login', 'action' => 'logout')); ?>
