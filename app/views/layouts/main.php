@@ -16,37 +16,40 @@
 
 </head>
 <body>
-    <div id="content">
+    <div id="body">
+        <div id="content">
 
-        <div id="head">
+            <div id="main">
 <? if (isset($this->session['user'])) : ?>
-            <div id="userBar">
-                <?= _f('Connected as %s',array($this->session['user'])) ?>
-                -
-                <?= link_to(__('Create an achievement'), array('controller' => 'achievements', 'action' => 'create')); ?>
-                -
-                <?= link_to(__('Logout'), array('controller' => 'login', 'action' => 'logout')); ?>
-            </div>
+                <div id="userBar">
+                    <?= _f('Connected as %s',array($this->session['user'])) ?>
+                    -
+                    <?= link_to(__('Create an achievement'), array('controller' => 'achievements', 'action' => 'create')); ?>
+                    -
+                    <?= link_to(__('Logout'), array('controller' => 'login', 'action' => 'logout')); ?>
+                </div>
 <? else : ?>
-            <div id="anonymBar">
-                <?= __('Not logged in') ?>
-                -
-                <?= link_to(__('Login'), array('controller' => 'login', 'action' => 'login')); ?>
-                -
-                <?= link_to(__('Register'), array('controller' => 'users', 'action' => 'register')); ?>
-            </div>
+                <div id="anonymBar">
+                    <?= __('Not logged in') ?>
+                    -
+                    <?= link_to(__('Login'), array('controller' => 'login', 'action' => 'login')); ?>
+                    -
+                    <?= link_to(__('Register'), array('controller' => 'users', 'action' => 'register')); ?>
+                </div>
 <? endif; ?>
-        </div>
 
-        <div id="body">
-            <?= $this->layout_content; ?>
-        </div>
+                <?= $this->layout_content; ?>
 
-        <div id="foot">
-            <?= __('Achievements is free software released under the terms of the GNU Affero General Public License') ?>.
-            <a href="http://github.com/vincenta/achievements" title="<? __('Achievements github project homepage') ?>"><?= __('Project homepage') ?></a>
+            </div>
+            &nbsp;
         </div>
 
     </div>
+
+    <div id="foot">
+        <?= __('Achievements is free software released under the terms of the GNU Affero General Public License') ?>
+        (<a href="http://github.com/vincenta/achievements" title="<? __('Achievements github project homepage') ?>"><?= __('Project homepage') ?></a>).
+    </div>
+
 </body>
 </html>

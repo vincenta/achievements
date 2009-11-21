@@ -1,22 +1,38 @@
+/*
+colors:
+body bg: #405766
+footer bg: #082334
+
+achievements colors:
+title: #ab5a03
+description: #513304
+icon bg: #373737
+icon color: #efb037
+*/
 
 /* default styles and colors */
-body { background-color: #000000; }
-a { font-weight: bold; text-decoration: none; color: #4b5d24; }
+body { margin: 0; padding: 0; background: #405766 url('/images/bgBody.jpg') repeat-y scroll top center; }
+a { font-weight: bold; text-decoration: none; color: #efb037; }
 a:hover { text-decoration: underline; }
-h1 { font-size: 1.6em; }
-h2 { font-size: 1.4em; }
-h3 { font-size: 1.2em; }
+h1 { font-size: 1.6em; color: #373737; }
+h2 { font-size: 1.4em; color: #373737; }
+h3 { font-size: 1.2em; color: #373737; }
 
 /* main layout */
-#content { margin: auto; padding: 0 5px 0 5px; width: 772px; background-color: #9c9c9c; border-radius: 5px; }
-#head { margin: 0; padding: 96px 0 5px 0; background: #9c9c9c url('/images/hof.png') no-repeat scroll top center; }
-#foot { margin: 0; padding: 25px 5px 5px 5px; font-size: 0.7em; }
+#body { margin: 0; padding: 0; background: transparent url('/images/bgTop.jpg') no-repeat scroll top center; }
+#content { margin: 0; padding: 0; background: transparent url('/images/bgBottom.png') no-repeat scroll bottom center; }
+#main { margin: 0 auto 0 auto; padding: 450px 0 0 0; width: 800px; }
+#foot { margin: 0; padding: 100px 5px 5px 5px; background-color: #082334; font-size: 0.7em; }
 
 /* head */
-#anonymBar { margin: 0; padding: 0 5px 0 5px; background-color: #4f4f4f; border-radius: 5px; color: #c8b996; font-weight: bold; }
-#anonymBar a { color: #9dc34c; }
-#userBar { margin: 0; padding: 0 5px 0 5px; background-color: #4f4f4f; border-radius: 5px; color: #c8b996; font-weight: bold; }
-#userBar a { color: #9dc34c; }
+#anonymBar { margin: 0; padding: 0 5px 0 5px; background-color: #4f4f4f; border-radius: 5px; color: #ab5a03; font-weight: bold; }
+#anonymBar a { color: #efb037; }
+#userBar { margin: 0; padding: 0 5px 0 5px; background-color: #4f4f4f; border-radius: 5px; color: #ab5a03; font-weight: bold; }
+#userBar a { color: #efb037; }
+
+/* foot */
+#foot { color: #ffffff; }
+#foot a { color: #efb037; }
 
 /* forms */
 label { display: block; }
