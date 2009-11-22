@@ -59,4 +59,15 @@ class User extends SActiveRecord {
     public function get_gravatar_url($size = 40) {
         return Gravatar::build_gravatar_url($this->email, $size);
     }
+
+    /**
+     * true if user is the creator of the given achievement
+     * @param Achievement $achievement      the achievement to test
+     * @access public
+     * @return boolean
+     */
+    public function is_creator_of($achievement) {
+        return ($this->id==$achievement->creator_id);
+    }
+
 }

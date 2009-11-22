@@ -19,14 +19,21 @@ require 'forms/achievement_form.php';
 class AchievementsController extends ApplicationController {
 
     /**
+     * Index action : redirect to home page
+     * @access public
+     * @return void
+     */
+    public function index() {
+        $this->redirect_to_home();
+    }
+
+    /**
      * Create action : create and generate a new achievement
      * @access public
      * @return void
      */
     public function create() {
-        $this->add_extra_css('jquery.imageSelector.css');
-        $this->add_extra_js('jquery.imageSelector.js');
-        $this->form = new AchievementCreateForm();
+        $this->_open_form();
 
         if ($this->request->is_post()) {
             if (!$this->form->is_valid($this->params['achievement'])) {
@@ -52,13 +59,36 @@ class AchievementsController extends ApplicationController {
      * @access public
      * @return void
      */
-//    public function update() {
-//
-//        //FIXME: do things here
-//
-//        $this->_generate($this->achievement);
-//        $this->redirect_to_home()
-//    }
+    public function update() {
+        if (!$this->_load_achievement()) {
+            $this->redirect_to_home();
+            return;
+        }
+
+        if ((!$this->achievement->is_locked()) || (!$this->session['user']->is_creator_of($this->achievement))) {
+            $this->flash['error'] = __('You can\'t update this achievement.');
+            $this->redirect_to_home();
+            return;
+        }
+
+        if ($this->request->is_post()) {
+            $this->_open_form();
+
+            if (!$this->form->is_valid($this->params['achievement'])) {
+                $this->flash['error'] = __('Fail to update achievement : Check data.');
+                return;
+            }
+            $this->achievement->populate($this->form->cleaned_data);
+            if (!($this->achievement->save())) {
+                $this->form->errors = $this->achievement->errors;
+                $this->flash['error'] = __('Fail to update achievement : Check data.');
+                return;
+            }
+
+            $this->_generate($this->achievement);
+            $this->redirect_to_home();
+        }
+    }
 
     /**
      * Preview action : generate an achievement preview
@@ -84,6 +114,41 @@ class AchievementsController extends ApplicationController {
     }
 
 
+
+    /**
+     * include required js and css and create the achievement form
+     * @access public
+     * @return void
+     */
+    protected function _open_form() {
+        $this->add_extra_css('jquery.imageSelector.css');
+        $this->add_extra_js('jquery.imageSelector.js');
+        $this->form = new AchievementCreateForm();
+        if (isset($this->achievement)) {
+            $this->form->set_initial_values(array(
+                'title' => $this->achievement->title,
+                'description' => $this->achievement->description,
+                'reward' => $this->achievement->reward,
+                'image_id' => $this->achievement->image_id
+            ));
+        }
+    }
+
+    /**
+     * load the achievement given in parameters (id of achievement_id). Return false in case of error
+     * @access public
+     * @return boolean
+     */
+    protected function _load_achievement() {
+        try {
+            $achievement_id = $this->params['id']!='' ? $this->params['id'] : $this->params['achievement_id'];
+            $this->achievement = Achievement::$objects->get($achievement_id);
+        } catch (SRecordNotFound $e) {
+            $this->flash['error'] = __('Can\'t find this achievement.');
+            return false;
+        }
+        return true;
+    }
 
     /**
      * generate the achievement and put it in the achievements folder
