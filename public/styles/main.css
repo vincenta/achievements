@@ -37,5 +37,16 @@ h3 { font-size: 1.2em; color: #373737; }
 /* forms */
 label { display: block; }
 input, textarea { border: 1px solid #000000; }
+input, textarea { background-color: #999999; }
 .error { color: #dd0000; }
+
+/* achievements */
+.achievement img { border: 0; padding: 0; margin: 0; }
+.achievement img { vertical-align: middle; }
+.achievement img.newIcon { vertical-align:top; }
+.achievement .achievementEditOptions { display: block; text-align: right; padding: 0 30px 0 0; }
+
+/* action links */
+.editLink { background: transparent url('/images/silk/pencil.png') no-repeat scroll center left; padding: 0 0 0 16px; }
+.deleteLink { background: transparent url('/images/silk/delete.png') no-repeat scroll center left; padding: 0 0 0 16px; }
 

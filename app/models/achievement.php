@@ -28,7 +28,7 @@ class Achievement extends SActiveRecord {
      * @return string
      */
     public function __toString() {
-        return "Achievement #{$this->id}";
+        return "Achievement #{$this->id}: {$this->title}";
     }
 
     /**
@@ -47,6 +47,15 @@ class Achievement extends SActiveRecord {
      */
     public function is_expired() {
         return $this->state=='expired';
+    }
+
+    /**
+     * True if the challenge has expired
+     * @access public
+     * @return boolean
+     */
+    public function is_new() {
+        return $this->updated_on->ts() > time()-86400;
     }
 
     /**
@@ -87,7 +96,7 @@ class Achievement extends SActiveRecord {
      */
     public function generate() {
         $pix = $this->image;
-        $image_path = !empty($this->image) ? $this->image->get_path() : null;
+        $image_path = !empty($pix) ? $pix->get_path() : null;
         $image = new AchievementPix($this->title, $this->description, $this->reward_text(), $this->state, $image_path);
         return $image;
     }

@@ -11,7 +11,7 @@
         <p class="error"><?= $this->flash['error']; ?></p>
     <? endif; ?>
 
-    <?= submit_tag(__('Create !')); ?>
+    <?= submit_tag(__('Update !')); ?>
 
 <?= end_form_tag(); ?>
 

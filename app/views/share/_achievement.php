@@ -1,17 +1,26 @@
 <?php
-$creator = $achievement->creator->target();
-$winner = $achievement->winner->target();
-
-if ($achievement->is_locked()) {
-    $state = __('Locked');
-} elseif ($achievement->is_expired()) {
-    $state = __('Expired');
-} else {
-    $state = _f('Won by %s',array($winner));
-}
+$editable = (($achievement->is_locked()) && (!$this->session['user']->is_creator_of($this->achievement)));
 ?>
-<p>
-    <img src="<?= achievement_url($achievement) ?>" alt="<?= $achievement ?>"/><br/>
-    <?= $state ?>
-</p>
 
+<p class="achievement" id="achievement_<?= $achievement->id ?>">
+    <img src="<?= achievement_url($achievement) ?>" alt="<?= $achievement ?>"/>
+    <?= ($achievement->is_new() ? '<img src="/images/silk/new.png" alt="new" class="newIcon"/>' : '') ?>
+    <span class="achievementEditOptions" style="visibility: hidden;">
+<? if ($editable) : ?>
+        <a href="<?= url_for(array('controller' => 'achievements', 'action' => 'update', 'id' => $achievement->id )) ?>" title="<?= __('Modify this achievement') ?>" class="editLink"><?= __('Edit') ?></a>
+        -
+        <a href="<?= url_for(array('controller' => 'achievements', 'action' => 'delete', 'id' => $achievement->id )) ?>" title="<?= __('Delete this achievement') ?>" class="deleteLink"><?= __('Delete') ?></a>
+<? endif; ?>
+    </span>
+</p>
+<? if ($editable) : ?>
+<script type="text/javascript">
+    var achievement = $('#achievement_<?= $achievement->id ?>');
+    achievement.mouseover(function(){
+        $(this).find('.achievementEditOptions').css('visibility','visible');
+    });
+    achievement.mouseout(function(){
+        $(this).find('.achievementEditOptions').css('visibility','hidden');
+    });
+</script>
+<? endif; ?>

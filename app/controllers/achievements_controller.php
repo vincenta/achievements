@@ -71,8 +71,9 @@ class AchievementsController extends ApplicationController {
             return;
         }
 
+        $this->_open_form();
+
         if ($this->request->is_post()) {
-            $this->_open_form();
 
             if (!$this->form->is_valid($this->params['achievement'])) {
                 $this->flash['error'] = __('Fail to update achievement : Check data.');
@@ -91,6 +92,30 @@ class AchievementsController extends ApplicationController {
     }
 
     /**
+     * Delete action : delete a locked achievement
+     * (unlocked and expired achievements can't be modified)
+     * @access public
+     * @return void
+     */
+    public function delete() {
+        if (!$this->_load_achievement()) {
+            $this->redirect_to_home();
+            return;
+        }
+
+        if ((!$this->achievement->is_locked()) || (!$this->session['user']->is_creator_of($this->achievement))) {
+            $this->flash['error'] = __('You can\'t delete this achievement.');
+            $this->redirect_to_home();
+            return;
+        }
+
+        $this->achievement->delete();
+        $path = achievement_path($this->achievement);
+        unlink($path);
+        $this->redirect_to_home();
+    }
+
+    /**
      * Preview action : generate an achievement preview
      * @access public
      * @return void
@@ -106,8 +131,6 @@ class AchievementsController extends ApplicationController {
         }
         $achievement = new Achievement($this->form->cleaned_data);
         $image = $achievement->generate();
-
-        $image = new AchievementPix($title, $description, $reward, $state, $image);
 
         header('Content-Type: image/png');
         echo $image->getImage();

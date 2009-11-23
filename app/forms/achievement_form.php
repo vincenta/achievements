@@ -8,15 +8,24 @@ class AchievementCreateForm extends SForm {
         $this->set_prefix('achievement');
         $this->title = new SCharField(array(
             'required' => true,
-            'label'    => __('Title')
+            'label'    => __('Title'),
+            'input_attrs' => array(
+                'style'    => 'width: 50%;'
+            )
         ));
         $this->description = new SCharField(array(
             'required' => true,
-            'label'    => __('Description')
+            'label'    => __('Description'),
+            'input_attrs' => array(
+                'style'    => 'width: 50%;'
+            )
         ));
         $this->reward = new SCharField(array(
             'required' => true,
-            'label'    => __('Reward')
+            'label'    => __('Reward'),
+            'input_attrs' => array(
+                'style'    => 'width: 50%;'
+            )
         ));
         $this->image_id = new ImageSelectorField(array(
             'required'  => true,
