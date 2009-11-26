@@ -20,6 +20,9 @@ class HomeController extends ApplicationController {
      * @return void
      */
     public function index() {
+        $this->add_extra_css('jquery.achievementMenu.css');
+        $this->add_extra_js('jquery.achievementMenu.js');
+
         $this->trophies = Achievement::$objects->all()->filter('state = ?',array('unlocked'))->order_by('-updated_on', '-created_on');
         $this->locked = Achievement::$objects->all()->filter('state = ?',array('locked'))->order_by('-updated_on', '-created_on');
         $this->expired = Achievement::$objects->all()->filter('state = ?',array('expired'))->order_by('-updated_on', '-created_on');

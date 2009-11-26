@@ -1,0 +1,7 @@
+
+.achievementMenu { display: block; background-color: #4f4f4f; }
+.achievementMenuOption { display: block; margin: 0; padding: 0; }
+.achievementMenuOption a { display: block; }
+.achievementMenuOption a:hover { text-decoration: none; background-color: #ab5a03; color: #ffffff; }
+.achievementButton:hover { cursor:pointer; }
+

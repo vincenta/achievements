@@ -14,6 +14,16 @@
  */
 
 /**
+ * Translate and protect string to be used in js
+ * @param string $label
+ * @access public
+ * @return string
+ */
+function __js($label) {
+    return addslashes(__($label));
+}
+
+/**
  * The path to the achievement image file
  * @param Achievement $achievement  achievement
  * @access public
