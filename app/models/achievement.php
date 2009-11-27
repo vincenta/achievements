@@ -55,7 +55,7 @@ class Achievement extends SActiveRecord {
      * @return boolean
      */
     public function is_new() {
-        return $this->updated_on->ts() > time()-86400;
+        return (!$this->is_expired() && ($this->updated_on->ts() > time()-86400));
     }
 
     /**
