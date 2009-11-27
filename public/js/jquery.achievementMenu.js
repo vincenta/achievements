@@ -10,7 +10,7 @@
         return this.each(function(){
             var achievement = $(this);
             var menu = $('<div class="achievementMenu"></div>')
-                       .css({visibility:'hidden',display:'block',width:'150px',position:'absolute'})
+                       .css({visibility:'hidden',display:'block',position:'absolute'})
                        .insertAfter(achievement);
             var button = $('<img class="achievementButton" src="/images/silk/cog.png" alt="options"/>')
                          .css({visibility:'visible',position:'relative',left:'-20px'})

@@ -11,7 +11,7 @@ icon color: #efb037
 */
 
 /* default styles and colors */
-body { margin: 0; padding: 0; background: #405766 url('/images/bgBody.jpg') repeat-y scroll top center; }
+body { margin: 0; padding: 0; background: #405766 url('/images/BodyTopBG01.jpg') no-repeat scroll top center; color: #ffffff; }
 a { font-weight: bold; text-decoration: none; color: #efb037; }
 a:hover { text-decoration: underline; }
 h1 { font-size: 1.6em; color: #373737; }
@@ -19,18 +19,19 @@ h2 { font-size: 1.4em; color: #373737; }
 h3 { font-size: 1.2em; color: #373737; }
 
 /* main layout */
-#body { margin: 0; padding: 0; background: transparent url('/images/bgTop.jpg') no-repeat scroll top center; }
-#content { margin: 0; padding: 0; background: transparent url('/images/bgBottom.png') no-repeat scroll bottom center; }
-#main { margin: 0 auto 0 auto; padding: 450px 0 0 0; width: 800px; }
-#foot { margin: 0; padding: 100px 5px 5px 5px; background-color: #082334; font-size: 0.7em; }
+#page { margin: 50px 0 0 0; padding: 0; background: transparent url('/images/bgBottom.png') no-repeat scroll bottom center; }
+#main { margin: 0 auto 0 auto; padding: 0 0 0 0; width: 844px; background: transparent url('/images/BG01.png') repeat-y scroll 0px 14px; }
+#content { margin: 20px; padding: 0; }
 
 /* head */
-#anonymBar { margin: 0; padding: 0 5px 0 5px; background-color: #4f4f4f; border-radius: 5px; color: #ab5a03; font-weight: bold; }
+#head { margin: 0 auto 0 auto; padding: 302px 0 0 0; background: transparent url('/images/bandeauUpBG01.png') no-repeat scroll top center; }
+#anonymBar { margin: 0 20px; padding: 0 5px 0 5px; background-color: #4f4f4f; border-radius: 5px; color: #ab5a03; font-weight: bold; }
 #anonymBar a { color: #efb037; }
-#userBar { margin: 0; padding: 0 5px 0 5px; background-color: #4f4f4f; border-radius: 5px; color: #ab5a03; font-weight: bold; }
+#userBar { margin: 0 20px; padding: 0 5px 0 5px; background-color: #4f4f4f; border-radius: 5px; color: #ab5a03; font-weight: bold; }
 #userBar a { color: #efb037; }
 
 /* foot */
+#foot { margin: 0; padding: 100px 5px 5px 5px; background-color: #082334; font-size: 0.7em; }
 #foot { color: #ffffff; }
 #foot a { color: #efb037; }
 
@@ -46,6 +47,8 @@ input, textarea { background-color: #999999; }
 .achievement img.newIcon { vertical-align:top; }
 
 /* action links */
-.editLink { background: transparent url('/images/silk/pencil.png') no-repeat scroll center left; padding: 0 0 0 16px; }
-.deleteLink { background: transparent url('/images/silk/delete.png') no-repeat scroll center left; padding: 0 0 0 16px; }
+.winnerLink { background: transparent url('/images/silk/user_add.png') no-repeat scroll center left; padding: 0 1px 0 16px; }
+.expiredLink { background: transparent url('/images/silk/clock_red.png') no-repeat scroll center left; padding: 0 1px 0 16px; }
+.editLink { background: transparent url('/images/silk/pencil.png') no-repeat scroll center left; padding: 0 1px 0 16px; }
+.deleteLink { background: transparent url('/images/silk/delete.png') no-repeat scroll center left; padding: 0 1px 0 16px; }
 

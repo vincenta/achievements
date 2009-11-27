@@ -114,6 +114,9 @@ class ApplicationController extends SActionController {
         if ($this->controller_name()=='login')
             return true;
         //else
+        if ($this->controller_name()=='home')
+            return true;
+        //else
         if (($this->controller_name()=='users') && ($this->action_name()=='register'))
             return true;
         //else

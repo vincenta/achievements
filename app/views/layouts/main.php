@@ -16,15 +16,17 @@
 
 </head>
 <body>
-    <div id="body">
-        <div id="content">
+    <div id="page">
 
-            <div id="main">
+
+            <div id="head">
+            </div>
+        <div id="main">
 <? if (isset($this->session['user'])) : ?>
                 <div id="userBar">
                     <?= _f('Connected as %s',array($this->session['user'])) ?>
                     -
-                    <?= link_to(__('View all'), array('controller' => 'home')); ?>
+                    <?= link_to(__('Hall of Fame'), array('controller' => 'home')); ?>
                     -
                     <?= link_to(__('Create an achievement'), array('controller' => 'achievements', 'action' => 'create')); ?>
                     -
@@ -34,18 +36,23 @@
                 <div id="anonymBar">
                     <?= __('Not logged in') ?>
                     -
+                    <?= link_to(__('Hall of Fame'), array('controller' => 'home')); ?>
+                    -
                     <?= link_to(__('Login'), array('controller' => 'login', 'action' => 'login')); ?>
                     -
                     <?= link_to(__('Register'), array('controller' => 'users', 'action' => 'register')); ?>
                 </div>
 <? endif; ?>
 
+
+            <div id="content">
+
                 <?= $this->layout_content; ?>
 
             </div>
+
             &nbsp;
         </div>
-
     </div>
 
     <div id="foot">
