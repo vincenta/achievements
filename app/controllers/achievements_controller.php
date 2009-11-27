@@ -92,6 +92,35 @@ class AchievementsController extends ApplicationController {
     }
 
     /**
+     * Set_expired action : update achievement state to expired
+     * (unlocked and expired achievements can't be modified)
+     * @access public
+     * @return void
+     */
+    public function set_expired() {
+        if (!$this->_load_achievement()) {
+            $this->redirect_to_home();
+            return;
+        }
+
+        if ((!$this->achievement->is_locked()) || (!$this->session['user']->is_creator_of($this->achievement))) {
+            $this->flash['error'] = __('You can\'t modify this achievement.');
+            $this->redirect_to_home();
+            return;
+        }
+
+        $this->achievement->state = 'expired';
+        if (!($this->achievement->save())) {
+            $this->form->errors = $this->achievement->errors;
+            $this->flash['error'] = __('Fail to update achievement : Check data.');
+            return;
+        }
+
+        $this->_generate($this->achievement);
+        $this->redirect_to_home();
+    }
+
+    /**
      * Delete action : delete a locked achievement
      * (unlocked and expired achievements can't be modified)
      * @access public
