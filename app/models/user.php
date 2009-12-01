@@ -56,7 +56,7 @@ class User extends SActiveRecord {
      * @access public
      * @return string
      */
-    public function get_gravatar_url($size = 40) {
+    public function get_gravatar_url($size = 64) {
         return Gravatar::build_gravatar_url($this->email, $size);
     }
 

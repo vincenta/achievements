@@ -23,7 +23,7 @@ class PixController extends ApplicationController {
         $this->layout = '';
 
         $all = array();
-        foreach (ImageBrowser::all() as $title => $image) {
+        foreach (ImageBrowser::all() as $image) {
             $all[] = array(
                 'image_id' => $image->filename,
                 'title'    => $image->title,
@@ -33,7 +33,7 @@ class PixController extends ApplicationController {
         $this->render_json(array(
             'message' => 'ok',
             'count'   => count($all),
-            'images'  => $all
+            'elements'  => $all
         ));
     }
 

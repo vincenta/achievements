@@ -1,7 +1,7 @@
 <?php
 $editable = false;
 if ($this->session['user']) {
-    $editable = (($achievement->is_locked()) && (!$this->session['user']->is_creator_of($this->achievement)));
+    $editable = (($achievement->is_locked()) && ($this->session['user']->is_creator_of($achievement)));
 }
 ?>
 

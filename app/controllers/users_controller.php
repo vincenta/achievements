@@ -48,4 +48,27 @@ class UsersController extends ApplicationController {
         }
     }
 
+    /**
+     * all_json action : return the list of all users useable to generate achievements in the pix folder
+     * @access public
+     * @return void
+     */
+    public function all_json() {
+        $this->layout = '';
+
+        $all = array();
+        foreach (User::$objects->all() as $user) {
+            $all[] = array(
+                'image_id' => $user->id,
+                'title'    => $user->__toString(),
+                'url'      => $user->get_gravatar_url()
+            );
+        }
+        $this->render_json(array(
+            'message' => 'ok',
+            'count'   => count($all),
+            'elements'  => $all
+        ));
+    }
+
 }

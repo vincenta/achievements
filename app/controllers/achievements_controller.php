@@ -92,6 +92,46 @@ class AchievementsController extends ApplicationController {
     }
 
     /**
+     * Set_winner action : set the winner of an achievement
+     * (the achievement state changes to unlocked)
+     * @access public
+     * @return void
+     */
+    public function set_winner() {
+        if (!$this->_load_achievement()) {
+            $this->redirect_to_home();
+            return;
+        }
+
+        if ((!$this->achievement->is_locked()) || (!$this->session['user']->is_creator_of($this->achievement))) {
+            $this->flash['error'] = __('You can\'t modify this achievement.');
+            $this->redirect_to_home();
+            return;
+        }
+
+        $this->_open_setWinnerForm();
+
+        if ($this->request->is_post()) {
+
+            if (!$this->form->is_valid($this->params['achievement'])) {
+                $this->flash['error'] = __('Fail to set the winner : Check data.');
+                return;
+            }
+            $this->achievement->state = 'unlocked';
+            $this->achievement->winner_id = $this->form->cleaned_data['winner_id'];
+            if (!($this->achievement->save())) {
+                $this->form->errors = $this->achievement->errors;
+                $this->flash['error'] = __('Fail to set the winner : Check data.');
+                return;
+            }
+
+            $this->_generate($this->achievement);
+            $this->redirect_to_home();
+        }
+    }
+
+
+    /**
      * Set_expired action : update achievement state to expired
      * (unlocked and expired achievements can't be modified)
      * @access public
@@ -182,6 +222,22 @@ class AchievementsController extends ApplicationController {
                 'description' => $this->achievement->description,
                 'reward' => $this->achievement->reward,
                 'image_id' => $this->achievement->image_id
+            ));
+        }
+    }
+
+    /**
+     * include required js and css and create the form used to set the winner
+     * @access public
+     * @return void
+     */
+    protected function _open_setWinnerForm() {
+        $this->add_extra_css('jquery.imageSelector.css');
+        $this->add_extra_js('jquery.imageSelector.js');
+        $this->form = new SetWinnerForm();
+        if (isset($this->achievement)) {
+            $this->form->set_initial_values(array(
+                'winner_id' => $this->achievement->winner_id
             ));
         }
     }

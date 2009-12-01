@@ -32,6 +32,15 @@ class Achievement extends SActiveRecord {
     }
 
     /**
+     * True if the achievement has been accomplished (= won)
+     * @access public
+     * @return boolean
+     */
+    public function is_unlocked() {
+        return $this->state=='unlocked';
+    }
+
+    /**
      * True if the achievement has not been accomplished
      * @access public
      * @return boolean
@@ -64,6 +73,8 @@ class Achievement extends SActiveRecord {
      * @return string
      */
     public function reward_text() {
+        if ($this->is_unlocked())
+            return _f('Reward : %s, won by %s, given by %s', array($this->reward, $this->winner->target(), $this->creator->target()));
         return _f('Reward : %s, given by %s', array($this->reward, $this->creator->target()));
     }
 

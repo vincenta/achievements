@@ -21,7 +21,7 @@
                     loadingError();
                     return false;
                 }
-                $.each(data.images, function(i,image){
+                $.each(data.elements, function(i,image){
                     addImage(image);
                 });
             });
@@ -30,7 +30,7 @@
              * Makes element editable
              */
             function addImage(image){
-                var span = $('<span class="selectorImage"><img src="'+image.url+'" alt="'+image.title+'" /></span>');
+                var span = $('<span class="selectorImage"><img src="'+image.url+'" alt="'+image.title+'" title="'+image.title+'" /></span>');
                 span.click(function() {
                     selectImage(image,span);
                 });
