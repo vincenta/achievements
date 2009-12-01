@@ -20,57 +20,47 @@ class AchievementPix {
     protected $_reward;
     protected $_state;
     protected $_pix;
-    protected $_bgColor;
-    protected $_titleColor;
-    protected $_titleFont;
-    protected $_titleFontSize=20;
-    protected $_textColor;
-    protected $_textFont;
-    protected $_textFontSize=11;
+    protected $_theme;
 
     /**
      * Constructor 
-     * @param string $title        achivement title to draw
+     * @param string $title        achievement title to draw
      * @param string $description  description to draw
      * @param string $state        'unlocked', 'locked' or 'expired'
      * @param string $pix          path to the achievement pix (64*64px)
+     * @param AchievementPixTheme $theme AchievementPix theme
      * @access public
      * @return void
      */
-    public function __construct($title, $description, $reward='', $state='unlocked', $pix=null) {
-        $this->set_default();
+    public function __construct($title, $description, $reward='', $state='unlocked', $pix=null, AchievementPixTheme $theme=null) {
+        $pix_path  = dirname(__FILE__).'/pix';
 
         $this->_title = $title;
         $this->_description = $description;
         $this->_reward = $reward;
 
+        $this->_state = 'unlocked';
         if (in_array($state, array('unlocked','locked','expired')))
             $this->_state = $state;
+
+        $this->_pix = "{$pix_path}/default.png";
         if (!empty($pix))
             $this->_pix = $pix;
 
-        if ($this->_state!='unlocked') {
-            $this->_bgColor    = '#343434';
-            $this->_titleColor = '#909090';
-            $this->_textColor  = '#909090';
-        }
+        $this->set_theme($theme);
     }
 
     /**
-     * Reset the AchievementPix attributes to default values
+     * Set the AchievementPix visual style
+     * @param AchievementPixTheme $theme AchievementPix theme
      * @access public
      * @return mixed
      */
-    public function set_default() {
-        $font_path = dirname(__FILE__).'/fonts';
-        $pix_path  = dirname(__FILE__).'/pix';
-        $this->_state      = 'unlocked';
-        $this->_pix        = "{$pix_path}/default.png";
-        $this->_titleFont  = "{$font_path}/Vera.ttf";
-        $this->_textFont   = "{$font_path}/VeraBd.ttf";
-        $this->_bgColor    = '#4f4f4f';
-        $this->_titleColor = '#9dc34c';
-        $this->_textColor  = '#c8b996';
+    public function set_theme(AchievementPixTheme $theme=null) {
+        if (empty($theme))
+            $this->_theme = new AchievementPixTheme($this->_state);
+        else
+            $this->_theme = $theme;
     }
 
     /**
@@ -120,18 +110,18 @@ class AchievementPix {
         $draw = new ImagickDraw();
 
         //drawing Background
-        $draw->setFillColor(new ImagickPixel($this->_bgColor));
+        $draw->setFillColor(new ImagickPixel($this->_theme->bgColor));
         $draw->roundRectangle(0,0,$this->_width-1,$this->_height-1,5,5);
 
         //drawing Title and Description
-        $this->_addTextToDraw($draw, $this->_titleColor, $this->_titleFont, $this->_titleFontSize,
+        $this->_addTextToDraw($draw, $this->_theme->titleColor, $this->_theme->titleFont, $this->_theme->titleFontSize,
             84, 5, $this->_title);
-        $this->_addTextToDraw($draw, $this->_textColor, $this->_textFont, $this->_textFontSize,
+        $this->_addTextToDraw($draw, $this->_theme->textColor, $this->_theme->textFont, $this->_theme->textFontSize,
             84, 30, $this->_description);
 
         //drawing Reward
         if (!empty($this->_reward)) {
-            $this->_addTextToDraw($draw, $this->_textColor, $this->_textFont, $this->_textFontSize,
+            $this->_addTextToDraw($draw, $this->_theme->textColor, $this->_theme->textFont, $this->_theme->textFontSize,
                 84, 51, $this->_reward);
         }
 
@@ -172,3 +162,55 @@ class AchievementPix {
         $draw->annotation($x,$y+$draw->getFontSize(),$text);
     }
 }
+
+/**
+ * Class used to set achievement images visual style.
+ * 
+ * @copyright Copyright (c) 2009 Vincent Alquier
+ * @author Vincent Alquier <vincent.alquier@gmail.com> 
+ * @license AGPL 3.0
+ */
+class AchievementPixTheme {
+    protected $_bgColor       = '#4f4f4f';
+    protected $_titleColor    = '#9dc34c';
+    protected $_titleFont;
+    protected $_titleFontSize = 20;
+    protected $_textColor     = '#c8b996';
+    protected $_textFont;
+    protected $_textFontSize  = 11;
+
+    /**
+     * Constructor 
+     * @param string $state        'unlocked', 'locked' or 'expired'
+     * @access public
+     * @return void
+     */
+    public function __construct($state='unlocked') {
+        $font_path = dirname(__FILE__).'/fonts';
+
+        $this->_titleFont     = "{$font_path}/Vera.ttf";
+        $this->_titleFontSize = 20;
+        $this->_textFont      = "{$font_path}/VeraBd.ttf";
+        $this->_textFontSize  = 11;
+        if ($state!='unlocked') {
+            $this->_bgColor    = '#343434';
+            $this->_titleColor = '#909090';
+            $this->_textColor  = '#909090';
+        } else {
+            $this->_bgColor    = '#4f4f4f';
+            $this->_titleColor = '#9dc34c';
+            $this->_textColor  = '#c8b996';
+        }
+    }
+
+    /**
+     * Standard getter
+     * @access public
+     * @return void
+     */
+    public function __get($var) {
+        $attribute = "_{$var}";
+        return $this->$attribute;
+    }
+}
+
