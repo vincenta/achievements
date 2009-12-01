@@ -7,7 +7,6 @@ if ($this->session['user']) {
 
 <p class="achievement" id="achievement_<?= $achievement->id ?>">
     <img class="achievementPix" src="<?= achievement_url($achievement) ?>" alt="<?= $achievement ?>"/>
-    <?= ($achievement->is_new() ? '<img src="/images/silk/new.png" alt="new" class="newIcon"/>' : '') ?>
 </p>
 <? if ($editable) : ?>
 <script type="text/javascript">
