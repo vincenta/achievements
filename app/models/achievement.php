@@ -106,9 +106,11 @@ class Achievement extends SActiveRecord {
      * @return AchievementPix
      */
     public function generate() {
+        $title = strtoupper($this->title);
         $pix = $this->image;
         $image_path = !empty($pix) ? $pix->get_path() : null;
-        $image = new AchievementPix($this->title, $this->description, $this->reward_text(), $this->state, $image_path);
+        $theme = new DefaultPixTheme($this->state);
+        $image = new AchievementPix($title, $this->description, $this->reward_text(), $this->state, $image_path, $theme);
         return $image;
     }
 }

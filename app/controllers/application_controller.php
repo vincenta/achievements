@@ -9,6 +9,7 @@
 
 include_once 'Gravatar/gravatar.php';
 include_once 'Achievement/achievement.php';
+include_once 'resources/achievements_theme.php';
 include_once 'models/image.php';
 
 /**
