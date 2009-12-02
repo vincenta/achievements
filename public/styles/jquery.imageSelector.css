@@ -3,6 +3,8 @@
     padding: 0;
     background-color: #999999;
     border: 1px solid #000000;
+    height: 250px;
+    overflow-y: scroll;
 }
 
 .selectorBox .selectorImage {
