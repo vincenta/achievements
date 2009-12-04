@@ -31,7 +31,7 @@ h3 { font-size: 1.2em; color: #373737; }
 #anonymBar a, #userBar a { color: #efb037; font-size: 1.2em; text-transform: uppercase; }
 
 /* foot */
-#foot { margin: 0; padding: 100px 5px 5px 5px; background-color: #082334; font-size: 0.7em; }
+#foot { margin: 0; padding: 80px 5px 5px 5px; background-color: #082334; font-size: 0.7em; }
 #foot { color: #ffffff; }
 #foot a { color: #efb037; }
 

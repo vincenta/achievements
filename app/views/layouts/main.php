@@ -53,6 +53,8 @@
     </div>
 
     <div id="foot">
+        <script type="text/javascript" src="http://www.ohloh.net/p/468415/widgets/project_users_logo.js"></script>
+        <br/>
         <?= __('Achievements is free software released under the terms of the GNU Affero General Public License') ?>
         (<a href="http://github.com/vincenta/achievements" title="<? __('Achievements github project homepage') ?>"><?= __('Project homepage') ?></a>).
     </div>
