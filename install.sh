@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "creating database..."
+php scripts/do.php migrate
+
 echo "create cache/fragments dir..."
 mkdir -p cache/fragments
 
