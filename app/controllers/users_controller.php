@@ -19,6 +19,18 @@ require 'forms/user_form.php';
 class UsersController extends ApplicationController {
 
     /**
+     * Default action : users ranking
+     * @access public
+     * @return void
+     */
+    public function index() {
+        $results = User::$objects->get_ranking();
+        foreach ($results as $result) {
+            $this->users = new User($result);
+        }
+    }
+
+    /**
      * Register action : create a new account
      * @access public
      * @return void

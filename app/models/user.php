@@ -20,6 +20,8 @@ class User extends SActiveRecord {
     );
     public $record_timestamps = true;
 
+    protected $score;
+
     /**
      * Standard __toString function
      * @access public
@@ -27,6 +29,17 @@ class User extends SActiveRecord {
      */
     public function __toString() {
         return "{$this->login}";
+    }
+
+    /**
+     * Overrides the Stato active record populate function
+     * @param array $values
+     * @access public
+     * @return void
+     */
+    public function populate($values=array()) {
+        if (isset($values['score'])) $this->score = $values['score'];
+        parent::populate($values);
     }
 
     /**
@@ -51,6 +64,17 @@ class User extends SActiveRecord {
     }
 
     /**
+     * Return user's score
+     * @access public
+     * @return integer
+     */
+    public function get_score() {
+        if (!isset($this->score))
+            $this->score = $this->achievements_won->count();
+        return $this->score;
+    }
+
+    /**
      * Get the user gravatar url
      * @param integer $size         desired image size (in pixels)
      * @access public
@@ -70,4 +94,31 @@ class User extends SActiveRecord {
         return ($this->id==$achievement->creator_id);
     }
 
+    /**
+     * Build image and return the AchievementPix object
+     * @access public
+     * @return AchievementPix
+     */
+    public function generate_image() {
+        $title = strtoupper($this->login);
+        $image_path = $this->get_gravatar_url();
+        $theme = new DefaultPixTheme('unlocked');
+        $image = new AchievementPix($title, "", null, $this->state, $image_path, $theme);
+        return $image;
+    }
 }
+
+class UserManager extends SManager {
+
+    function get_ranking() {
+        $query = "
+            SELECT u.*, count(a.id) as score
+            FROM users u
+            LEFT JOIN achievements a ON a.winner_id = u.id
+            GROUP BY u.id
+            ORDER BY score DESC, login ASC;";
+        return User::connection()->query($query);
+    }
+
+}
+
