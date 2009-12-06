@@ -20,6 +20,10 @@ class DefaultPixTheme extends AchievementPixTheme {
         $font_path = dirname(__FILE__).'/fonts';
 
         $this->_titleFont     = "{$font_path}/Victor.ttf";
+        $this->_titleFontSize = 24;
+        $this->_titleYPos     = 4;
+        $this->_descYPos      = 34;
+        $this->_rewardYPos    = 51;
         if ($state!='unlocked') {
             $this->_bgColor    = '#343434';
             $this->_titleColor = '#909090';

@@ -115,14 +115,14 @@ class AchievementPix {
 
         //drawing Title and Description
         $this->_addTextToDraw($draw, $this->_theme->titleColor, $this->_theme->titleFont, $this->_theme->titleFontSize,
-            84, 5, $this->_title);
+            84, $this->_theme->titleYPos, $this->_title);
         $this->_addTextToDraw($draw, $this->_theme->textColor, $this->_theme->textFont, $this->_theme->textFontSize,
-            84, 30, $this->_description);
+            84, $this->_theme->descYPos, $this->_description);
 
         //drawing Reward
         if (!empty($this->_reward)) {
             $this->_addTextToDraw($draw, $this->_theme->textColor, $this->_theme->textFont, $this->_theme->textFontSize,
-                84, 51, $this->_reward);
+                84, $this->_theme->rewardYPos, $this->_reward);
         }
 
         $canvas->drawImage($draw);
@@ -178,6 +178,9 @@ class AchievementPixTheme {
     protected $_textColor     = '#c8b996';
     protected $_textFont;
     protected $_textFontSize  = 11;
+    protected $_titleYPos     = 5;
+    protected $_descYPos      = 34;
+    protected $_rewardYPos    = 51;
 
     /**
      * Constructor 
