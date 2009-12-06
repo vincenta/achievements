@@ -56,11 +56,112 @@ function achievement_url($achievement) {
  * @return void
  */
 function generate_achievement($achievement, $path) {
-    if (!($f = @fopen($path, 'w')))
+    if (!can_write($path))
         throw new Exception(_f('Can\'t write to file %s',array($path)));
-    fclose($f);
-    unlink($path);
     $image = $achievement->generate();
     $image->saveImage($path);
 }
 
+/**
+ * set the achievement image file to be generated again
+ * @param Achievement $achievement  achievement
+ * @access public
+ * @return void
+ */
+function must_regenerate_achievement($achievement) {
+    $path = achievement_path($achievement);
+    unlink($path);
+}
+
+/**
+ * The path to the user image file
+ * @param User $user  user
+ * @access public
+ * @return string
+ */
+function userImage_path($user) {
+    $filename = strtolower("{$user->login}.png");
+    return "users/{$filename}";
+}
+
+/**
+ * The url of the user image file (generate the file if it does no exists)
+ * @param User $user  user
+ * @access public
+ * @return string
+ */
+function userImage_url($user) {
+    $path = userImage_path($user);
+    if (!file_exists($path)) {
+        generate_userImage($user, $path);
+    }
+    return SUrlRewriter::url_for($path);
+}
+
+/**
+ * Build image of the user and save it to the given path
+ * @param User $user  user
+ * @param string      $path         image file path including format (eg: users/toto.png)
+ * @access public
+ * @return void
+ */
+function generate_userImage($user, $path) {
+    if (!can_write($path))
+        throw new Exception(_f('Can\'t write to file %s',array($path)));
+    $image = $user->generate_image();
+    $image->saveImage($path);
+}
+
+/**
+ * set the user image file to be generated again
+ * @param User $user  user
+ * @access public
+ * @return void
+ */
+function must_regenerate_userImage($user) {
+    $path = userImage_path($user);
+    unlink($path);
+}
+
+/**
+ * http download a file from the given url and save it into the given filename
+ * @param string      $url          url
+ * @param string      $path         filename (eg: /tmp/toto.txt)
+ * @access public
+ * @return void
+ */
+function wget($url, $path) {
+    if (!can_write($path))
+        return false;
+
+    $from  = @fopen($url, 'rb');
+    $to    = @fopen($path, 'w');
+    $error = false;
+    while (!feof($from) && !$error) {
+        $buffer = @fread($from, 1024);
+        if (($buffer===FALSE) || (fwrite($to, $buffer)===FALSE)) {
+            $error = true;
+        }
+    }
+    fclose($to);
+    fclose($from);
+
+    if ($error)
+        unlink($to);
+
+    return !$error;
+}
+
+/**
+ * Test if a file is overwritable (warning: file is deleted if it exists and is writable)
+ * @param string      $path         filename (eg: /tmp/toto.txt)
+ * @access public
+ * @return void
+ */
+function can_write($path) {
+    if (!($f = @fopen($path, 'w')))
+        return false;
+    fclose($f);
+    unlink($path);
+    return true;
+}

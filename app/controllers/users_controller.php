@@ -24,9 +24,10 @@ class UsersController extends ApplicationController {
      * @return void
      */
     public function index() {
+        $this->users = new ArrayObject();
         $results = User::$objects->get_ranking();
         foreach ($results as $result) {
-            $this->users = new User($result);
+            $this->users[] = new User($result);
         }
     }
 
@@ -81,6 +82,18 @@ class UsersController extends ApplicationController {
             'count'   => count($all),
             'elements'  => $all
         ));
+    }
+
+
+
+    /**
+     * generate the user image and put it in the users folder
+     * @access public
+     * @return void
+     */
+    protected function _generate_userImage($user) {
+        $path = userImage_path($user);
+        generate_userImage($user, $path);
     }
 
 }

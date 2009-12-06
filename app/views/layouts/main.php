@@ -24,6 +24,8 @@
             -
             <?= link_to(__('Hall of Fame'), array('controller' => 'home')); ?>
             -
+            <?= link_to(__('Ranking'), array('controller' => 'users')); ?>
+            -
             <?= link_to(__('New achievement'), array('controller' => 'achievements', 'action' => 'create')); ?>
             -
             <?= link_to(__('Logout'), array('controller' => 'login', 'action' => 'logout')); ?>

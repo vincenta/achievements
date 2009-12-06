@@ -54,7 +54,8 @@ class SetWinnerForm extends SForm {
 
     protected function clean_winner_id($value) {
         try {
-            User::$objects->get($value);
+            $user = User::$objects->get($value);
+            $this->cleaned_data['winner'] = $user;
         } catch (SRecordNotFound $e) {
             throw new SValidationError(__('Select a winner'));
         }

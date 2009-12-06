@@ -48,7 +48,7 @@ class AchievementsController extends ApplicationController {
                 return;
             }
 
-            $this->_generate($this->achievement);
+            must_regenerate_achievement($this->achievement);
             $this->redirect_to_home();
         }
     }
@@ -86,7 +86,7 @@ class AchievementsController extends ApplicationController {
                 return;
             }
 
-            $this->_generate($this->achievement);
+            must_regenerate_achievement($this->achievement);
             $this->redirect_to_home();
         }
     }
@@ -119,13 +119,15 @@ class AchievementsController extends ApplicationController {
             }
             $this->achievement->state = 'unlocked';
             $this->achievement->winner_id = $this->form->cleaned_data['winner_id'];
+            $this->winner = $this->form->cleaned_data['winner'];
             if (!($this->achievement->save())) {
                 $this->form->errors = $this->achievement->errors;
                 $this->flash['error'] = __('Fail to set the winner : Check data.');
                 return;
             }
 
-            $this->_generate($this->achievement);
+            must_regenerate_achievement($this->achievement);
+            must_regenerate_userImage($this->winner);
             $this->redirect_to_home();
         }
     }
@@ -156,7 +158,7 @@ class AchievementsController extends ApplicationController {
             return;
         }
 
-        $this->_generate($this->achievement);
+        must_regenerate_achievement($this->achievement);
         $this->redirect_to_home();
     }
 
@@ -256,15 +258,5 @@ class AchievementsController extends ApplicationController {
             return false;
         }
         return true;
-    }
-
-    /**
-     * generate the achievement and put it in the achievements folder
-     * @access public
-     * @return void
-     */
-    protected function _generate($achievement) {
-        $path = achievement_path($achievement);
-        generate_achievement($achievement, $path);
     }
 }

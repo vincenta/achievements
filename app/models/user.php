@@ -100,10 +100,17 @@ class User extends SActiveRecord {
      * @return AchievementPix
      */
     public function generate_image() {
+        $fakeState = 'unlocked';
+        $pix = "/tmp/{$this->login}-gravatar.png";
+        if (!wget($this->get_gravatar_url(),$pix)) {
+            $pix = null;
+        }
+
         $title = strtoupper($this->login);
         $image_path = $this->get_gravatar_url();
-        $theme = new DefaultPixTheme('unlocked');
-        $image = new AchievementPix($title, "", null, $this->state, $image_path, $theme);
+        $theme = new DefaultPixTheme($fakeState);
+        $score = _f('%d achievements won',array($this->get_score()));
+        $image = new AchievementPix($title, $score, null, $fakeState, $pix, $theme);
         return $image;
     }
 }
