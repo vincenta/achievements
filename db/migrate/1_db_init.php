@@ -2,6 +2,11 @@
 
 class DbInit extends SMigration {
 
+    /**
+     * Create users and achievements tables
+     * @access public
+     * @return void
+     */
     public function up() {
         $t = new STable();
         $t->add_primary_key('id');
@@ -28,7 +33,12 @@ class DbInit extends SMigration {
 
         $this->execute("ALTER TABLE `achievements` MODIFY `state` ENUM('unlocked','locked','expired') NOT NULL DEFAULT 'locked';");
     }
-    
+
+    /**
+     * Drop users and achievements tables
+     * @access public
+     * @return void
+     */
     public function down() {
         $this->drop_table('users');
         $this->drop_table('achievements');
