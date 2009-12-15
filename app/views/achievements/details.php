@@ -11,7 +11,7 @@
     <div class="gravatar"><?= gravatar_tag($creator); ?></div>
     <div class="details">
         <?php
-        echo _f('Created by %s, %s.', array($creator, displayable_date($this->achievement->created_on)));
+        echo '<span class="author">'._f('Created by %s, %s.', array($creator, displayable_date($this->achievement->created_on))).'</span>';
 
         if ($this->achievement->updated_on > $this->achievement->created_on)
             echo "<br/>\n"._f('Updated %s.', displayable_date($this->achievement->updated_on));
