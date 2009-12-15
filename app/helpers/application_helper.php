@@ -165,3 +165,42 @@ function can_write($path) {
     unlink($path);
     return true;
 }
+
+/**
+ * Return a user profile image tag html code
+ * @param User      $user
+ * @access public
+ * @return void
+ */
+function gravatar_tag($user) {
+    return tag('img', array('src' => $user->get_gravatar_url(), 'alt' => $user->__toString(), 'title' => $user->__toString()));
+}
+
+/**
+ * Return a displayable internationalized date
+ * @param date      $date
+ * @access public
+ * @return string
+ */
+function displayable_date($date) {
+    $age = time() - $date;
+    if ($age < 60) {
+        return __('just few seconds ago');
+    }
+    if ($age < 3600) {
+        $minutes = intval($age/60);
+        return _f('%s minutes ago',$minutes);
+    }
+    //FIXME: it would be better to use "yesterday" if date is older than today at 00:00
+    if ($age < 86400) {
+        $hours = intval($age/3600);
+        return _f('%s hours ago',$hours);
+    }
+    if ($age < 864000) {
+        $days = intval($age/86400);
+        return _f('%s days ago',$days);
+    }
+    //FIXME: it would be better to give the date ;)
+    return __('a long time ago');
+}
+

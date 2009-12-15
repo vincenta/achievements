@@ -54,6 +54,20 @@ class AchievementsController extends ApplicationController {
     }
 
     /**
+     * Details action : show the achievement details and associated comments
+     * @access public
+     * @return void
+     */
+    public function details() {
+        if (!$this->_load_achievement()) {
+            $this->redirect_to_home();
+            return;
+        }
+        $this->add_extra_css('jquery.achievementMenu.css');
+        $this->add_extra_js('jquery.achievementMenu.js');
+    }
+
+    /**
      * Update action : update and regenerate a locked achievement
      * (unlocked and expired achievements can't be modified)
      * @access public

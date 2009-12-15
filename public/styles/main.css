@@ -52,3 +52,10 @@ input, textarea { background-color: #999999; }
 .editLink { background: transparent url('/images/silk/pencil.png') no-repeat scroll center left; padding: 0 1px 0 16px; }
 .deleteLink { background: transparent url('/images/silk/delete.png') no-repeat scroll center left; padding: 0 1px 0 16px; }
 
+/* achievement comments */
+.achievementDetails { min-height: 64px; }
+.comment blockquote { font-weight: bold; }
+
+/* users */
+.gravatar { display: block; float: left; padding: 4px; margin: 0 12px 0 0; }
+

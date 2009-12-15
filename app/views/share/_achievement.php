@@ -1,4 +1,6 @@
 <?php
+// doesn't display links if $nolinks is true
+// doesn't display menu if $nomenu it true
 $editable = false;
 if ($this->session['user']) {
     $editable = (($achievement->is_locked()) && ($this->session['user']->is_creator_of($achievement)));
@@ -7,8 +9,12 @@ if ($this->session['user']) {
 
 <p class="achievement" id="achievement_<?= $achievement->id ?>">
     <img class="achievementPix" src="<?= achievement_url($achievement) ?>" alt="<?= $achievement ?>"/>
+    <? if (!$nolinks && $this->session['user']) : ?>
+        <br/>
+        <?= link_to(__('View details'), array('controller' => 'achievements', 'action' => 'details', 'id' => $achievement->id ), array('title' => __('View comments') )) ?>
+    <? endif; ?>
 </p>
-<? if ($editable) : ?>
+<? if (!$nomenu && $editable) : ?>
 <script type="text/javascript">
     $('#achievement_<?= $achievement->id ?> .achievementPix').achievementMenu({
         0: {
