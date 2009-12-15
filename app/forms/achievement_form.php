@@ -110,3 +110,21 @@ class UserSelectorInput extends SInput {
         return '<input '.$this->flatten_attrs($final_attrs).' />'.$js;
     }
 }
+
+class CommentForm extends SForm {
+
+    public function __construct (array $data = null, array $files = null) {
+        parent::__construct($data, $files);
+
+        $this->set_prefix('comment');
+        $this->body = new STextField(array(
+            'required' => true,
+            'label'    => __('Message'),
+            'input_attrs' => array(
+                'cols' => 80,
+                'rows' => 5
+            )
+        ));
+    }
+}
+

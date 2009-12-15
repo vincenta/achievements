@@ -11,7 +11,8 @@ if ($this->session['user']) {
     <img class="achievementPix" src="<?= achievement_url($achievement) ?>" alt="<?= $achievement ?>"/>
     <? if (!$nolinks && $this->session['user']) : ?>
         <br/>
-        <?= link_to(__('View details'), array('controller' => 'achievements', 'action' => 'details', 'id' => $achievement->id ), array('title' => __('View comments') )) ?>
+        <?= link_to(__('View details'), array('controller' => 'achievements', 'action' => 'details', 'id' => $achievement->id ), array('title' => __('View details and comments') )) ?>
+        (<?= _f('%s comments',$achievement->comments->count()) ?>)
     <? endif; ?>
 </p>
 <? if (!$nomenu && $editable) : ?>

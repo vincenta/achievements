@@ -53,9 +53,12 @@ input, textarea { background-color: #999999; }
 .deleteLink { background: transparent url('/images/silk/delete.png') no-repeat scroll center left; padding: 0 1px 0 16px; }
 
 /* achievement comments */
-.achievementDetails { min-height: 64px; }
-.comment blockquote { font-weight: bold; }
+.achievementDetails { min-height: 80px; margin-bottom: 8px; }
+.comment { min-height: 80px; margin-bottom: 8px; }
+.details { padding: 4px; margin: 0 0 0 80px; }
+.comment .author { color: #cccccc; font-style:italic; }
+.comment blockquote { font-weight: bold; margin: 0; }
 
 /* users */
-.gravatar { display: block; float: left; padding: 4px; margin: 0 12px 0 0; }
+.gravatar { display: inline; position: absolute; padding: 4px; margin: 0 12px 0 0; }
 

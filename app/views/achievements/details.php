@@ -22,9 +22,30 @@
             echo "<br/>\n".__('Expired');
 
         if ($this->achievement->is_unlocked())
-            echo "<br/>\n"._f('Won by %s',$this->achievements->winner->target());
+            echo "<br/>\n"._f('Won by %s',$this->achievement->winner->target()->__toString());
         ?>
     </div>
 </div>
 
+<? if (count($this->comments)<=0) : ?>
+    <p><?= __('No comments on this achievement'); ?>.</p>
+<? else : ?>
+    <div class="commentsList">
+        <?= $this->render_partial_collection('share/comment',$this->comments); ?>
+    </div>
+<? endif; ?>
+
+<h1><?= __('Posting a comment'); ?></h1>
+
+<?= form_tag(array('controller' => 'achievements', 'action' => 'comment', 'id' => $this->achievement->id)); ?>
+
+    <?= $this->form; ?>
+
+    <? if (!empty($this->flash['error'])) : ?>
+        <p class="error"><?= $this->flash['error']; ?></p>
+    <? endif; ?>
+
+    <?= submit_tag(__('Comment !')); ?>
+
+<?= end_form_tag(); ?>
 

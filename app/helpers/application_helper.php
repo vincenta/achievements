@@ -183,6 +183,8 @@ function gravatar_tag($user) {
  * @return string
  */
 function displayable_date($date) {
+    if ($date instanceof SDateTime)
+        $date = $date->ts();
     $age = time() - $date;
     if ($age < 60) {
         return __('just few seconds ago');

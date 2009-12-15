@@ -16,7 +16,8 @@ class Achievement extends SActiveRecord {
     public static $objects;
     public static $relationships = array(
         'creator' => array( 'assoc_type' => 'belongs_to', 'class_name' => 'User', 'foreign_key' => 'creator_id' ),
-        'winner' => array( 'assoc_type' => 'belongs_to', 'class_name' => 'User', 'foreign_key' => 'winner_id' )
+        'winner' => array( 'assoc_type' => 'belongs_to', 'class_name' => 'User', 'foreign_key' => 'winner_id' ),
+        'comments' => array( 'assoc_type' =>'has_many', 'class_name' => 'Comment', 'foreign_key' => 'author_id' )
     );
     public $record_timestamps = true;
 

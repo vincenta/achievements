@@ -65,6 +65,13 @@ class AchievementsController extends ApplicationController {
         }
         $this->add_extra_css('jquery.achievementMenu.css');
         $this->add_extra_js('jquery.achievementMenu.js');
+
+        $this->form = new CommentForm();
+
+        $this->comments = Comment::$objects->all()->filter('achievement_id = ?',array($this->achievement->id))
+                                                  ->order_by('comments.created_on')->includes('achievement','author');
+        // if no Stato bug, I can do :
+        // $this->comments = $this->achievement->comments->order_by('comments.created_on')->includes('achievement','author');
     }
 
     /**
@@ -198,6 +205,32 @@ class AchievementsController extends ApplicationController {
         $path = achievement_path($this->achievement);
         unlink($path);
         $this->redirect_to_home();
+    }
+
+    /**
+     * Comment action : post a comment on an achievement
+     * @access public
+     * @return void
+     */
+    public function comment() {
+        if (!$this->_load_achievement()) {
+            $this->redirect_to_home();
+            return;
+        }
+        $this->form = new CommentForm();
+
+        if ($this->request->is_post() && $this->form->is_valid($this->params['comment'])) {
+            $comment = new Comment($this->form->cleaned_data);
+            $comment->author_id = $this->session['user']->id;
+            $comment->achievement_id = $this->achievement->id;
+            if (!($comment->save())) {
+                $this->form->errors = $comment->errors;
+                $this->flash['error'] = __('Can\'t post the comment : Check data.');
+            }
+        } else {
+            $this->flash['error'] = __('Can\'t post the comment : Check data.');
+        }
+        $this->redirect_to(array('controller' => 'achievements', 'action' => 'details', 'id' => $this->achievement->id));
     }
 
     /**
