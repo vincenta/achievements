@@ -25,7 +25,7 @@ h3 { font-size: 1.2em; color: #373737; }
 #content { margin: 0 20px 0 20px; padding: 0; }
 
 /* head */
-#head { margin: 0 auto 0 auto; padding: 302px 0 0 0; background: transparent url('/images/bandeauUpBG01.png') no-repeat scroll top center; }
+#head { margin: 0 auto 0 auto; padding: 302px 0 0 0; width: 844px; background: transparent url('/images/bandeauUpBG01.png') no-repeat scroll top center; }
 #anonymBar, #userBar { margin: 0 auto 0 auto; padding: 0 5px 0 5px; width: 800px; border-radius: 5px; font-weight: bold; }
 #anonymBar, #userBar { color: #ffffff; text-align: center; }
 #anonymBar a, #userBar a { color: #efb037; font-size: 1.2em; text-transform: uppercase; }
