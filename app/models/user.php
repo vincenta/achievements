@@ -16,7 +16,8 @@ class User extends SActiveRecord {
     public static $objects;
     public static $relationships = array(
         'achievements_created' => array( 'assoc_type' =>'has_many', 'class_name' => 'Achievement', 'foreign_key' => 'creator_id' ),
-        'achievements_won' => array( 'assoc_type' =>'has_many', 'class_name' => 'Achievement', 'foreign_key' => 'winner_id' )
+        'achievements_won' => array( 'assoc_type' =>'has_many', 'class_name' => 'Achievement', 'foreign_key' => 'winner_id' ),
+        'comments' => array( 'assoc_type' =>'has_many', 'class_name' => 'Comment', 'foreign_key' => 'author_id' )
     );
     public $record_timestamps = true;
 
