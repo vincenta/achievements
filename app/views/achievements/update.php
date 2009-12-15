@@ -3,6 +3,10 @@
 
 <p><?= __('Achievements can only be updated while they are still locked !'); ?></p>
 
+<p class="achievement" id="achievement_<?= $this->achievement->id ?>">
+    <img class="achievementPix" src="<?= achievement_url($this->achievement) ?>" alt="<?= $this->achievement ?>"/>
+</p>
+
 <?= form_tag(array('controller' => 'achievements', 'action' => 'update', 'id' => $this->achievement->id)); ?>
 
     <?= $this->form; ?>
