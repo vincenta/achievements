@@ -70,7 +70,8 @@ function generate_achievement($achievement, $path) {
  */
 function must_regenerate_achievement($achievement) {
     $path = achievement_path($achievement);
-    unlink($path);
+    if (file_exists($path))
+        unlink($path);
 }
 
 /**
