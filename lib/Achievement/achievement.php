@@ -21,6 +21,7 @@ class AchievementPix {
     protected $_state;
     protected $_pix;
     protected $_theme;
+    protected $_image;
 
     /**
      * Constructor 
@@ -69,20 +70,23 @@ class AchievementPix {
      * @return void
      */
     public function __get($var) {
+        if ($var=='image')
+            return $this->build();
         $attribute = "_{$var}";
         return $this->$attribute;
     }
 
     /**
-     * Build image and return the Imagick object
+     * Build image and return the Imagick object or just return if it was already built
      * @param string $format       image format (gif, jpg, png, tiff, default is png)
      * @access public
      * @return Imagick
      */
-    public function getImage($format='png') {
-        $image = $this->_buildImage();
-        $image->setImageFormat($format);
-        return $image;
+    public function build($format='png') {
+        if (!$this->_image)
+            $this->_image = $this->_buildImage();
+        $this->_image->setImageFormat($format);
+        return $this->_image;
     }
 
     /**
@@ -91,11 +95,21 @@ class AchievementPix {
      * @access public
      * @return void
      */
-    public function saveImage($filename) {
-        $image = $this->_buildImage();
+    public function save($filename) {
+        $info  = pathinfo($filename);
+        $image = $this->build($info['extension']);
         $image->writeImage($filename);
-        $image->clear();
-        $image->destroy();
+    }
+
+    /**
+     * Free all resources and delete the image object
+     * @access public
+     * @return void
+     */
+    public function destroy() {
+        if ($this->_image)
+            $this->_image->destroy();
+        $this->_image = null;
     }
 
     /**
