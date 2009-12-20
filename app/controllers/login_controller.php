@@ -28,7 +28,7 @@ class LoginController extends ApplicationController {
             $this->redirect_to_login();
             return;
         }
-        $this->redirect_to_home();
+        $this->redirect_to(home_url());
     }
 
     /**
@@ -49,7 +49,7 @@ class LoginController extends ApplicationController {
                     if (isset($this->params['return_to'])) {
                         $this->redirect_to($this->params['return_to']);
                     } else {
-                        $this->redirect_to_home();
+                        $this->redirect_to(home_url());
                     }
                     
                     $logger = new SLogger('../log/connection.log');

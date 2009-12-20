@@ -42,9 +42,6 @@ function achievement_path($achievement) {
  */
 function achievement_url($achievement) {
     $path = achievement_path($achievement);
-    if (!file_exists($path)) {
-        generate_achievement($achievement, $path);
-    }
     return SUrlRewriter::url_for($path);
 }
 
@@ -59,7 +56,8 @@ function generate_achievement($achievement, $path) {
     if (!can_write($path))
         throw new Exception(_f('Can\'t write to file %s',array($path)));
     $image = $achievement->generate();
-    $image->saveImage($path);
+    $image->save($path);
+    return $image;
 }
 
 /**
@@ -93,9 +91,6 @@ function userImage_path($user) {
  */
 function userImage_url($user) {
     $path = userImage_path($user);
-    if (!file_exists($path)) {
-        generate_userImage($user, $path);
-    }
     return SUrlRewriter::url_for($path);
 }
 
@@ -110,7 +105,8 @@ function generate_userImage($user, $path) {
     if (!can_write($path))
         throw new Exception(_f('Can\'t write to file %s',array($path)));
     $image = $user->generate_image();
-    $image->saveImage($path);
+    $image->save($path);
+    return $image;
 }
 
 /**
@@ -121,7 +117,8 @@ function generate_userImage($user, $path) {
  */
 function must_regenerate_userImage($user) {
     $path = userImage_path($user);
-    unlink($path);
+    if (file_exists($path))
+        unlink($path);
 }
 
 /**

@@ -57,7 +57,7 @@ class UsersController extends ApplicationController {
             $this->session['user'] = $this->user;
 
             //FIXME mail a confirmation to user
-            $this->redirect_to_home();
+            $this->redirect_to(home_url());
         }
     }
 
@@ -84,16 +84,21 @@ class UsersController extends ApplicationController {
         ));
     }
 
-
-
     /**
-     * generate the user image and put it in the users folder
+     * generate the user image, put it in the users folder and return it
      * @access public
      * @return void
      */
-    protected function _generate_userImage($user) {
+    public function generate_image() {
+        $filename = $this->params['filename'];
+        $login = basename($filename,'.png');
+
+        $user = User::$objects->get_or_404('login = ?', array($login));
         $path = userImage_path($user);
-        generate_userImage($user, $path);
+        $image = generate_userImage($user, $path);
+
+        $this->render_image($image->image);
+        $image->destroy();
     }
 
 }

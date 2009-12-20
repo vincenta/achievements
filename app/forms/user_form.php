@@ -28,8 +28,8 @@ class UserCreateForm extends SForm {
 
     protected function clean_login($value) {
         $value = strtolower($value);
-        if (!preg_match('/^[a-z0-9._-]$/',$value))
-            throw new SValidationError(__('Only use letters, numbers, ".", "_" and "-"'),null,$value);
+        if (!preg_match('/^[a-z0-9_]$/',$value))
+            throw new SValidationError(__('Only use letters, numbers and "_".'),null,$value);
         return $value;
     }
 

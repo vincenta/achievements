@@ -24,7 +24,7 @@ class AchievementsController extends ApplicationController {
      * @return void
      */
     public function index() {
-        $this->redirect_to_home();
+        $this->redirect_to(home_url());
     }
 
     /**
@@ -49,7 +49,7 @@ class AchievementsController extends ApplicationController {
             }
 
             must_regenerate_achievement($this->achievement);
-            $this->redirect_to_home();
+            $this->redirect_to(home_url());
         }
     }
 
@@ -60,7 +60,7 @@ class AchievementsController extends ApplicationController {
      */
     public function details() {
         if (!$this->_load_achievement()) {
-            $this->redirect_to_home();
+            $this->redirect_to(home_url());
             return;
         }
         $this->add_extra_css('jquery.achievementMenu.css');
@@ -82,13 +82,13 @@ class AchievementsController extends ApplicationController {
      */
     public function update() {
         if (!$this->_load_achievement()) {
-            $this->redirect_to_home();
+            $this->redirect_to(home_url());
             return;
         }
 
         if ((!$this->achievement->is_locked()) || (!$this->session['user']->is_creator_of($this->achievement))) {
             $this->flash['error'] = __('You can\'t update this achievement.');
-            $this->redirect_to_home();
+            $this->redirect_to(home_url());
             return;
         }
 
@@ -108,7 +108,7 @@ class AchievementsController extends ApplicationController {
             }
 
             must_regenerate_achievement($this->achievement);
-            $this->redirect_to_home();
+            $this->redirect_to(home_url());
         }
     }
 
@@ -120,13 +120,13 @@ class AchievementsController extends ApplicationController {
      */
     public function set_winner() {
         if (!$this->_load_achievement()) {
-            $this->redirect_to_home();
+            $this->redirect_to(home_url());
             return;
         }
 
         if ((!$this->achievement->is_locked()) || (!$this->session['user']->is_creator_of($this->achievement))) {
             $this->flash['error'] = __('You can\'t modify this achievement.');
-            $this->redirect_to_home();
+            $this->redirect_to(home_url());
             return;
         }
 
@@ -149,7 +149,7 @@ class AchievementsController extends ApplicationController {
 
             must_regenerate_achievement($this->achievement);
             must_regenerate_userImage($this->winner);
-            $this->redirect_to_home();
+            $this->redirect_to(home_url());
         }
     }
 
@@ -162,13 +162,13 @@ class AchievementsController extends ApplicationController {
      */
     public function set_expired() {
         if (!$this->_load_achievement()) {
-            $this->redirect_to_home();
+            $this->redirect_to(home_url());
             return;
         }
 
         if ((!$this->achievement->is_locked()) || (!$this->session['user']->is_creator_of($this->achievement))) {
             $this->flash['error'] = __('You can\'t modify this achievement.');
-            $this->redirect_to_home();
+            $this->redirect_to(home_url());
             return;
         }
 
@@ -180,7 +180,7 @@ class AchievementsController extends ApplicationController {
         }
 
         must_regenerate_achievement($this->achievement);
-        $this->redirect_to_home();
+        $this->redirect_to(home_url());
     }
 
     /**
@@ -191,20 +191,20 @@ class AchievementsController extends ApplicationController {
      */
     public function delete() {
         if (!$this->_load_achievement()) {
-            $this->redirect_to_home();
+            $this->redirect_to(home_url());
             return;
         }
 
         if ((!$this->achievement->is_locked()) || (!$this->session['user']->is_creator_of($this->achievement))) {
             $this->flash['error'] = __('You can\'t delete this achievement.');
-            $this->redirect_to_home();
+            $this->redirect_to(home_url());
             return;
         }
 
         $this->achievement->delete();
         $path = achievement_path($this->achievement);
         unlink($path);
-        $this->redirect_to_home();
+        $this->redirect_to(home_url());
     }
 
     /**
@@ -214,7 +214,7 @@ class AchievementsController extends ApplicationController {
      */
     public function comment() {
         if (!$this->_load_achievement()) {
-            $this->redirect_to_home();
+            $this->redirect_to(home_url());
             return;
         }
         $this->form = new CommentForm();
@@ -234,6 +234,23 @@ class AchievementsController extends ApplicationController {
     }
 
     /**
+     * generate the achievement image, put it in the public achievements folder and return it
+     * @access public
+     * @return void
+     */
+    public function generate_image() {
+        $filename = $this->params['filename'];
+        $id = basename($filename,'.png');
+
+        $achievement = Achievement::$objects->get_or_404($id);
+        $path = achievement_path($achievement);
+        $image = generate_achievement($achievement, $path);
+
+        $this->render_image($image->image);
+        $image->destroy();
+    }
+
+    /**
      * Preview action : generate an achievement preview
      * @access public
      * @return void
@@ -250,8 +267,8 @@ class AchievementsController extends ApplicationController {
         $achievement = new Achievement($this->form->cleaned_data);
         $image = $achievement->generate();
 
-        header('Content-Type: image/png');
-        echo $image->getImage();
+        $this->render_image($image->image);
+        $image->destroy();
     }
 
 

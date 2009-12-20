@@ -65,22 +65,25 @@ class ApplicationController extends SActionController {
     }
 
     /**
+     * render a json array to the output
+     * @param array $array   the array to encode in json and render
+     * @access protected
+     * @return void
+     */
+    protected function render_image($image) {
+        $this->add_variables_to_assigns();
+        $this->response->headers['Content-Type'] = 'image/png';
+        $this->render_text($image->__toString());
+    }
+
+    /**
      * logout the current logged user
      * @access public
      * @return void
      */
     public function logout() {
         unset($this->session['user']);
-        $this->redirect_to_home();
-    }
-
-    /**
-     * http redirect to the application home
-     * @access protected
-     * @return void
-     */
-    protected function redirect_to_home() {
-        $this->redirect_to(array('controller' => 'home', 'action' => 'index'));
+        $this->redirect_to(home_url());
     }
 
     /**
@@ -94,6 +97,16 @@ class ApplicationController extends SActionController {
             $this->redirect_to(array('controller' => 'login', 'action' => 'login', 'return_to' => urlencode($this->request->request_uri())));
         else
             $this->redirect_to(array('controller' => 'login', 'action' => 'login'));
+    }
+
+    /**
+     * http redirect to the 404 error page
+     * @access protected
+     * @return void
+     */
+    protected function file_not_found() {
+        $this->redirect_to('/404.html');
+        return;
     }
 
     /**
