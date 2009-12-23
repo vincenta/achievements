@@ -5,6 +5,16 @@ $editable = false;
 if ($this->session['user']) {
     $editable = (($achievement->is_locked()) && ($this->session['user']->is_creator_of($achievement)));
 }
+if (!$nolinks && $this->session['user']) {
+    $comments_count = $achievement->comments->count();
+    if ($comments_count==1) {
+        $comments = '('._f('%s comment',$comments_count).')';
+    } elseif ($comments_count>1) {
+        $comments = '('._f('%s comments',$comments_count).')';
+    } else {
+        $comments = '';
+    }
+}
 ?>
 
 <p class="achievement" id="achievement_<?= $achievement->id ?>">
@@ -12,7 +22,7 @@ if ($this->session['user']) {
     <? if (!$nolinks && $this->session['user']) : ?>
         <br/>
         <?= link_to(__('View details'), array('controller' => 'achievements', 'action' => 'details', 'id' => $achievement->id ), array('title' => __('View details and comments') )) ?>
-        (<?= _f('%s comments',$achievement->comments->count()) ?>)
+        <?= $comments ?>
     <? endif; ?>
 </p>
 <? if (!$nomenu && $editable) : ?>

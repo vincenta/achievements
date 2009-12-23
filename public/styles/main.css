@@ -45,6 +45,7 @@ input, textarea { background-color: #999999; }
 .achievement img { border: 0; padding: 0; margin: 0; }
 .achievement img { vertical-align: middle; }
 .achievement img.newIcon { vertical-align:top; }
+.achievement { font-size: 0.9em; }
 
 /* action links */
 .winnerLink { background: transparent url('/images/silk/user_add.png') no-repeat scroll center left; padding: 0 1px 0 16px; }
