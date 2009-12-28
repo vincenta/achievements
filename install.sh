@@ -26,7 +26,8 @@ mkdir -p public/users
 
 echo "get Stato framework lib..."
 cd lib
-svn export --force https://stato.svn.sourceforge.net/svnroot/stato/tags/rel_0-10-0/ Stato
+#svn export --force https://stato.svn.sourceforge.net/svnroot/stato/tags/rel_0-10-0/ Stato
+svn export --force https://stato.svn.sourceforge.net/svnroot/stato/branches/0-10-stable/ Stato
 cd ..
 
 echo "set rights on directories..."
