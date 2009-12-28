@@ -31,7 +31,7 @@ function __js($label) {
  */
 function achievement_path($achievement) {
     $filename = $achievement->filename();
-    return "achievements/{$filename}";
+    return "images/achievements/{$filename}";
 }
 
 /**
@@ -80,7 +80,7 @@ function must_regenerate_achievement($achievement) {
  */
 function userImage_path($user) {
     $filename = strtolower("{$user->login}.png");
-    return "users/{$filename}";
+    return "images/users/{$filename}";
 }
 
 /**
