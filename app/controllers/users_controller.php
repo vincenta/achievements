@@ -56,7 +56,9 @@ class UsersController extends ApplicationController {
 
             $this->session['user'] = $this->user;
 
-            //FIXME mail a confirmation to user
+            $mailer = new ApplicationMailer();
+            $mailer->send_signup_notification($this->user);
+
             $this->redirect_to(home_url());
         }
     }

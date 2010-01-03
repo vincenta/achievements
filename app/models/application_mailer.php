@@ -90,6 +90,25 @@ class ApplicationMailer extends SMailer {
     }
 
     /**
+     * The signup notification
+     * body is loaded by the create method, from the template
+     * @param User $user
+     * @access public
+     * @return void
+     */
+    protected function signup_notification($user) {
+        $this->subject = '[ACHIEVEMENTS] Your account registration';
+        $this->body = array(
+            'user'      => $user,
+            'login_url' => url_for(array('controller' => 'login'))
+        );
+        $this->from = DEFAULT_MAIL_FROM;
+        $this->recipients = array(
+            array( $user->email, $user->login )
+        );
+    }
+
+    /**
      * The password reminder mail initialisation
      * body is loaded by the create method, from the template
      * @param User $user
