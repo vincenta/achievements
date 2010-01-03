@@ -16,13 +16,18 @@ class Gravatar {
 
     /**
      * Constructor 
-     * @param email   $email        user email address
+     * @param string  $email        user email address
      * @param integer $size         desired image size (in pixels)
+     * @param string  $default      d gravatar parameter (an image url, 'wavatar', 'identicon', 'monsterid' or '404')
      * @access public
      * @return string
      */
-    public static function build_gravatar_url($email, $size=40) {
+    public static function build_gravatar_url($email, $size=40, $default='wavatar') {
         $url = "http://www.gravatar.com/avatar.php?gravatar_id=%s&size=%d";
+        if (in_array($dafault,array('wavatar','identicon','monsterid','404')))
+            $url.= "&d=$default";
+        elseif (!empty($default))
+            $url.= "&d=".urlencode($default);
         return sprintf($url, md5(strtolower($email)), $size);
     }
 
