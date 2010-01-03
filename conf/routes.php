@@ -5,7 +5,7 @@ $map->home('', array('controller' => 'home', 'action' => 'index'));
 $map->user_image('images/users/:filename', array(
     'controller' => 'users',
     'action'       => 'generate_image',
-    'requirements' => array( 'filename'  => '/[a-z0-9]*$/' )
+    'requirements' => array( 'filename'  => '/[a-z0-9_]*$/' )
 ));
 $map->achievement_image('images/achievements/:filename', array(
     'controller' => 'achievements',
