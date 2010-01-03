@@ -80,8 +80,9 @@ class LoginController extends ApplicationController {
                     $user = User::$objects->get('email = ?',
                         array($this->params['user']['email']));
 
-                    //FIXME mail a password reminder for user
-            
+                    $mailer = new ApplicationMailer();
+                    $mailer->send_password_reminder($user);
+
                     $logger = new SLogger('../log/account.log');
                     $logger->info("{$user->login} ({$user->id}) password reminder sent to &lt;{$user->email}&gt;");
 

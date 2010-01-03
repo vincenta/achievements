@@ -12,5 +12,5 @@ $config->use_mailer = true;
 // SInflection::add_singular_rule('/games$/', 'game');
 // SInflection::add_plural_rule('/game$/', 'games');
 
-// Include your application configuration below
+define('DEFAULT_MAIL_FROM','no-reply@'.$_SERVER['SERVER_NAME']);
 
