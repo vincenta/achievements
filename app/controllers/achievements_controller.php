@@ -48,6 +48,9 @@ class AchievementsController extends ApplicationController {
                 return;
             }
 
+            $mailer = new ApplicationMailer();
+            $mailer->send_new_achievement($this->achievement);
+
             must_regenerate_achievement($this->achievement);
             $this->redirect_to(home_url());
         }

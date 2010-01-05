@@ -127,5 +127,35 @@ class ApplicationMailer extends SMailer {
         );
     }
 
+    /**
+     * The new achievement notification
+     * body is loaded by the create method, from the template
+     * @param User $user
+     * @access public
+     * @return void
+     */
+    protected function new_achievement($achievement) {
+        $image_path = achievement_path($achievement);
+        if (!file_exists($image_path))
+            generate_achievement($achievement,$image_path);
+        $image_name = "achievement-{$achievement->id}.png";
+        $this->subject = "[ACHIEVEMENTS] New challenge created by {$achievement->creator->target()}";
+        $this->body = array(
+            'achievement' => $achievement,
+            'image_name'  => $image_name
+        );
+        $this->attachments = array(
+            array(
+                'content'  => file_get_contents($image_path),
+                'filename' => $image_name,
+                'content_type' => 'image/png'
+            )
+        );
+        $this->from = DEFAULT_MAIL_FROM;
+        $this->recipients = array();
+        foreach (User::$objects->all()->values('email','login') as $user) {
+            $this->recipients[] = array( $user['email'], $user['login'] );
+        }
+    }
 }
 
