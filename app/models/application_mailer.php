@@ -134,7 +134,7 @@ class ApplicationMailer extends SMailer {
      * @access public
      * @return void
      */
-    protected function new_achievement($achievement) {
+    protected function achievement_created_notification($achievement) {
         $image_path = achievement_path($achievement);
         if (!file_exists($image_path))
             generate_achievement($achievement,$image_path);
@@ -156,6 +156,42 @@ class ApplicationMailer extends SMailer {
         foreach (User::$objects->all()->values('email','login') as $user) {
             $this->recipients[] = array( $user['email'], $user['login'] );
         }
+    }
+
+    /**
+     * The update achievement notification
+     * body is loaded by the create method, from the template
+     * @param User $user
+     * @access public
+     * @return void
+     */
+    protected function achievement_updated_notification($achievement) {
+        $this->achievement_created_notification($achievement);
+        $this->subject = "[ACHIEVEMENTS] Challenge updated by {$achievement->creator->target()}";
+    }
+
+    /**
+     * The won achievement notification
+     * body is loaded by the create method, from the template
+     * @param User $user
+     * @access public
+     * @return void
+     */
+    protected function achievement_won_notification($achievement) {
+        $this->achievement_created_notification($achievement);
+        $this->subject = "[ACHIEVEMENTS] Achievement accomplished by {$achievement->winner->target()}";
+    }
+
+    /**
+     * The expired achievement notification
+     * body is loaded by the create method, from the template
+     * @param User $user
+     * @access public
+     * @return void
+     */
+    protected function achievement_expired_notification($achievement) {
+        $this->achievement_created_notification($achievement);
+        $this->subject = "[ACHIEVEMENTS] Challenge has expired";
     }
 }
 

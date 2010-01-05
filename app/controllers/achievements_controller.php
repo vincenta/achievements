@@ -48,11 +48,11 @@ class AchievementsController extends ApplicationController {
                 return;
             }
 
-            $mailer = new ApplicationMailer();
-            $mailer->send_new_achievement($this->achievement);
-
             must_regenerate_achievement($this->achievement);
             $this->redirect_to(home_url());
+
+            $mailer = new ApplicationMailer();
+            $mailer->send_achievement_created_notification($this->achievement);
         }
     }
 
@@ -112,6 +112,9 @@ class AchievementsController extends ApplicationController {
 
             must_regenerate_achievement($this->achievement);
             $this->redirect_to(home_url());
+
+            $mailer = new ApplicationMailer();
+            $mailer->send_achievement_updated_notification($this->achievement);
         }
     }
 
@@ -153,6 +156,9 @@ class AchievementsController extends ApplicationController {
             must_regenerate_achievement($this->achievement);
             must_regenerate_userImage($this->winner);
             $this->redirect_to(home_url());
+
+            $mailer = new ApplicationMailer();
+            $mailer->send_achievement_won_notification($this->achievement);
         }
     }
 
@@ -184,6 +190,9 @@ class AchievementsController extends ApplicationController {
 
         must_regenerate_achievement($this->achievement);
         $this->redirect_to(home_url());
+
+        $mailer = new ApplicationMailer();
+        $mailer->send_achievement_expired_notification($this->achievement);
     }
 
     /**
