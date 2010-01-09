@@ -30,6 +30,15 @@ class DummyMailTransport implements SIMailTransport {
 class ApplicationMailer extends SMailer {
     protected $cc;
     protected $bcc;
+    protected $images;
+
+    protected static $image_defaults = array(
+        'content' => null,
+        'content_id' => null,
+        'content_type' => 'application/octet-stream',
+        'encoding' => 'base64',
+        'filename' => null
+    );
 
     /**
      * Constructor 
@@ -65,6 +74,12 @@ class ApplicationMailer extends SMailer {
             else $mail->add_bcc($bcc);
         }
 
+        if (!is_array($this->images)) $this->images = array($this->images);
+        foreach ($this->images as $a) {
+            $a = array_merge(self::$image_defaults, $a);
+            $mail->add_embedded_image($a['content'], $a['content_id'], $a['filename'], $a['content_type'], $a['encoding']);
+        }
+
         return $mail;
     }
 
@@ -85,6 +100,7 @@ class ApplicationMailer extends SMailer {
         $this->body = $body;
         $this->from = (isnull($from) ? DEFAULT_MAIL_FROM : $from);
         $this->recipients = $recipients;
+        $this->images = array();
         $this->cc = $cc;
         $this->bcc = $bcc;
     }
@@ -142,11 +158,12 @@ class ApplicationMailer extends SMailer {
         $this->subject = "[ACHIEVEMENTS] New challenge created by {$achievement->creator->target()}";
         $this->body = array(
             'achievement' => $achievement,
-            'image_name'  => $image_name
+            'image_cid'   => $image_name
         );
-        $this->attachments = array(
+        $this->images = array(
             array(
                 'content'  => file_get_contents($image_path),
+                'content_id' => $image_name,
                 'filename' => $image_name,
                 'content_type' => 'image/png'
             )
