@@ -155,16 +155,17 @@ class ApplicationMailer extends SMailer {
         if (!file_exists($image_path))
             generate_achievement($achievement,$image_path);
         $image_name = "achievement-{$achievement->id}.png";
+        $image_cid  = md5($image_name);
         $this->subject = "[ACHIEVEMENTS] New challenge created by {$achievement->creator->target()}";
         $this->body = array(
             'achievement' => $achievement,
-            'image_cid'   => $image_name
+            'image_cid'   => $image_cid
         );
         $this->images = array(
             array(
                 'content'  => file_get_contents($image_path),
                 'content_id' => $image_name,
-                'filename' => $image_name,
+                'filename' => $image_cid,
                 'content_type' => 'image/png'
             )
         );
