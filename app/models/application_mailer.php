@@ -164,8 +164,8 @@ class ApplicationMailer extends SMailer {
         $this->images = array(
             array(
                 'content'  => file_get_contents($image_path),
-                'content_id' => $image_name,
-                'filename' => $image_cid,
+                'content_id' => $image_cid,
+                'filename' => $image_name,
                 'content_type' => 'image/png'
             )
         );
