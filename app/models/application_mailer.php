@@ -74,8 +74,10 @@ class ApplicationMailer extends SMailer {
             else $mail->add_bcc($bcc);
         }
 
-        if (!is_array($this->images)) $this->images = array($this->images);
+        if (!is_array($this->images)) $this->images = array();
+        if (isset($this->images['filename'])) $this->images = array($this->images);
         foreach ($this->images as $a) {
+            if (!is_array($a)) $a = array();
             $a = array_merge(self::$image_defaults, $a);
             $mail->add_embedded_image($a['content'], $a['content_id'], $a['filename'], $a['content_type'], $a['encoding']);
         }
