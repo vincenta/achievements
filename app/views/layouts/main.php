@@ -58,8 +58,9 @@
         <script type="text/javascript" src="http://www.ohloh.net/p/468415/widgets/project_users_logo.js"></script>
         <br/>
         <?= __('Achievements is free software released under the terms of the GNU Affero General Public License') ?>
-        (<a href="http://www.fsf.org/licensing/licenses/agpl.html" title="<? __('Read the license text on the Free Software Foundation website') ?>"><?= __('License text') ?></a>,
-        <a href="http://wiki.github.com/vincenta/achievements" title="<? __('Achievements github project homepage') ?>"><?= __('Project homepage') ?></a>).
+        (<a href="http://www.fsf.org/licensing/licenses/agpl.html" title="<?= __('Read the license text on the Free Software Foundation website') ?>"><?= __('License text') ?></a>,
+        <a href="http://wiki.github.com/vincenta/achievements" title="<?= __('Achievements github project homepage') ?>"><?= __('Project homepage') ?></a>,
+        <a href="http://github.com/vincenta/achievements/issues" title="<?= __('Found a bug ? Need a feature ?') ?>"><?= __('"Bug Tracker"') ?></a>).
     </div>
 
 </body>
