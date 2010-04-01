@@ -82,6 +82,10 @@ class ApplicationController extends SActionController {
      * @return void
      */
     public function logout() {
+        if ($this->session['psession']) {
+            $this->session['psession']->force_expire();
+            unset($this->session['psession']);
+        }
         unset($this->session['user']);
         $this->redirect_to(home_url());
     }
@@ -125,7 +129,8 @@ class ApplicationController extends SActionController {
      * @return boolean
      */
     protected function is_authorized() {
-        if ($this->controller_name()=='login')
+        $authentified = $this->authenticate();
+        if (($this->controller_name()=='login') || ($this->action_name()=='logout'))
             return true;
         //else
         if ($this->controller_name()=='home')
@@ -137,7 +142,7 @@ class ApplicationController extends SActionController {
         if (($this->controller_name()=='achievement') && ($this->action_name()=='generate'))
             return true;
         //else
-        if ($this->authenticate())
+        if ($authentified)
             return true;
         //else
         $this->flash['notice'] = __('You\'re not authentified. Please, login.');
@@ -154,7 +159,17 @@ class ApplicationController extends SActionController {
      * @return boolean
      */
     protected function authenticate() {
-        return isset($this->session['user']);
+        if (isset($this->session['user']))
+            return true;
+        //else
+        $psession = Psession::retrieve();
+        if ($psession) {
+            $user = $psession->user->target();
+            $this->session['psession'] = $psession;
+            $this->session['user'] = $user;
+            return true;
+        }
+        return false;
     }
 
 }

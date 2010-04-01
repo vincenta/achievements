@@ -44,14 +44,21 @@ class LoginController extends ApplicationController {
                 try {
                     $this->user = User::$objects->get('login = ?', 'password = ?',
                         array($this->params['user']['login'], $this->params['user']['password']));
+
                     $this->session['user'] = $this->user;
-                    
+                    if ($this->params['user']['persistent']) {
+                        $psession = new Psession();
+                        $psession->user = $this->user;
+                        $psession->touch();
+                        $this->session['psession'] = $psession;
+                    }
+
                     if (isset($this->params['return_to'])) {
                         $this->redirect_to($this->params['return_to']);
                     } else {
                         $this->redirect_to(home_url());
                     }
-                    
+
                     $logger = new SLogger('../log/connection.log');
                     $logger->info("{$this->user->login} ({$this->user->id}) connects");
 

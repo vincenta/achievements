@@ -14,6 +14,10 @@ class LoginForm extends SForm {
             'required' => true,
             'label'    => __('Password')
         ));
+        $this->persistent = new SField(array(
+            'input' => 'SCheckboxInput',
+            'label'    => __('Keep me logged in')
+        ));
     }
 }
 
