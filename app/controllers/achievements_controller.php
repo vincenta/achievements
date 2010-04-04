@@ -235,6 +235,11 @@ class AchievementsController extends ApplicationController {
             $comment = new Comment($this->form->cleaned_data);
             $comment->author_id = $this->session['user']->id;
             $comment->achievement_id = $this->achievement->id;
+            //attachment
+            $attachment = $this->request->files['comment']['attachment'];
+            if ($attachment->error != 'no_file') {
+                $comment->attachment = $attachment;
+            }
             if (!($comment->save())) {
                 $this->form->errors = $comment->errors;
                 $this->flash['error'] = __('Can\'t post the comment : Check data.');

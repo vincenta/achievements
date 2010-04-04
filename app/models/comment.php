@@ -28,5 +28,21 @@ class Comment extends SActiveRecord {
     public function __toString() {
         return $this->body;
     }
+
+    /**
+     * called to set the attachment
+     * @param  mixed  $value
+     * @access protected
+     */
+    protected function write_attachment($value) {
+        if ($value instanceof SUploadedFile) {
+            $file = $value;
+            $file_extension = pathinfo($file->name, PATHINFO_EXTENSION);
+            $path = 'files/'.uniqid().'.'.$file_extension;
+            $file->move($path);
+            $value = $path;
+        }
+        $this->values['attachment'] = $value;
+    }
 }
 

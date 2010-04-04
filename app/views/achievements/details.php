@@ -37,7 +37,7 @@
 
 <h1><?= __('Posting a comment'); ?></h1>
 
-<?= form_tag(array('controller' => 'achievements', 'action' => 'comment', 'id' => $this->achievement->id)); ?>
+<?= form_tag(array('controller' => 'achievements', 'action' => 'comment', 'id' => $this->achievement->id), array('multipart' => true)); ?>
 
     <?= $this->form; ?>
 

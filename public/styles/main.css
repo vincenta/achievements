@@ -58,6 +58,7 @@ input, textarea { background-color: #999999; }
 .comment { min-height: 80px; margin-bottom: 8px; }
 .details { padding: 4px; margin: 0 0 0 80px; }
 .author { color: #cccccc; font-style:italic; }
+.attachment { background: transparent url('/images/silk/page_link.png') no-repeat scroll center left; padding: 0 0 0 16px; }
 .comment blockquote { font-weight: bold; margin: 0; }
 
 /* users */

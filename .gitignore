@@ -1,6 +1,7 @@
 conf/database.php
 lib/Stato
 public/achievements
+public/files
 public/users
 public/images/achievements
 public/images/users

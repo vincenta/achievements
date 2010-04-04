@@ -125,6 +125,10 @@ class CommentForm extends SForm {
                 'rows' => 5
             )
         ));
+        $this->attachment = new SFileField(array(
+            'required' => false,
+            'label'    => __('Attach a file'),
+        ));
     }
 }
 

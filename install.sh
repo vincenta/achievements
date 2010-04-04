@@ -34,6 +34,9 @@ else
     mkdir -p public/images/users
 fi
 
+echo "create public/files..."
+mkdir -p public/files
+
 echo "get Stato framework lib..."
 cd lib
 #svn export --force https://stato.svn.sourceforge.net/svnroot/stato/tags/rel_0-10-0/ Stato
@@ -41,8 +44,8 @@ svn export --force https://stato.svn.sourceforge.net/svnroot/stato/branches/0-10
 cd ..
 
 echo "set rights on directories..."
-sudo chown -R www-data:www-data cache log public/images/achievements public/images/users public/pix
-sudo chmod 700 cache cache/fragments cache/generated_code cache/templates public/images/achievements public/images/users public/pix
+sudo chown -R www-data:www-data cache log public/images/achievements public/images/users public/pix public/files
+sudo chmod 700 cache cache/fragments cache/generated_code cache/templates public/images/achievements public/images/users public/pix public/files
 sudo chmod 755 log
 
 echo "OK" 
